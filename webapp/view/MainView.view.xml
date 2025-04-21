@@ -1,0 +1,109 @@
+<mvc:View
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt"
+    controllerName="com.db.imayl.imayl.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <tnt:ToolPage id="mainpage">
+        <tnt:header>
+            <tnt:ToolHeader>
+                <Image id="logoId"
+                    src="https://cloud.imayl.com/Com/ProcessWeaver/IMAYL/Common/dist/img/logo.png"
+                />
+
+                <Button
+                    id="sideNavigationToggleButton"
+                    icon="sap-icon://menu2"
+                    type="Transparent"
+                    press=".onMenuButtonPress"
+                />
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent >
+            <tnt:SideNavigation expanded="true" selectedKey="2" width="2rem">
+                <tnt:NavigationList>
+                    <tnt:NavigationListItem
+                        text="All Packages"
+                        icon="sap-icon://circle-task"
+                        press=".onQuickActionPress"
+                        expanded="true"
+						key="1"
+                    />
+
+                    <tnt:NavigationListItem
+                        text="Receive a Package"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="true"
+						key="2"
+                    />
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <f:DynamicPage id="ReceiveaPackage_main" visible="true">
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="Receive a Package" />
+                        </f:heading>
+                        <f:actions>
+                            <Button
+                                icon="sap-icon://refresh"
+                                type="Critical"
+                            />
+                            <Button
+                                icon="sap-icon://filter"
+                                text="Filter"
+                                type="Emphasized"
+                            />
+                            <Button
+                                icon="sap-icon://add"
+                                type="Emphasized"
+                                press="onAddReceiveAPackage"
+                            />
+                            <Button
+                                icon="sap-icon://action-settings"
+                                type="Accept"
+                            />
+                        </f:actions>
+                    </f:DynamicPageTitle>
+                </f:title>
+				<f:header>
+				<f:DynamicPageHeader pinnable="false">
+				<Text text="Total Packages: 0 in Last 21 Days"></Text>
+				</f:DynamicPageHeader>
+				</f:header>
+            </f:DynamicPage>
+			<!-- <Page id="ReceiveaPackage_main" visible="true">
+			<tnt:ToolHeader >
+			<Title text="Receive a Package"></Title>
+                            <Button
+                                icon="sap-icon://refresh"
+                                type="Critical"
+                            />
+                            <Button
+                                icon="sap-icon://filter"
+                                text="Filter"
+                                type="Emphasized"
+                            />
+                            <Button
+                                icon="sap-icon://add"
+                                type="Emphasized"
+                                press="onAddReceiveAPackage"
+                            />
+                            <Button
+                                icon="sap-icon://action-settings"
+                                type="Accept"
+                            />
+			</tnt:ToolHeader>
+			</Page> -->
+			<Page id="ReceiveaPackage_form" title="Receive a Package" visible="false">
+			<content>
+			<Button text="cancel" press="oncancel"></Button>
+			</content>
+			</Page>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>
