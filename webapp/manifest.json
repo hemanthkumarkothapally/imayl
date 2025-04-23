@@ -46,7 +46,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.134.1",
       "libs": {
@@ -64,6 +64,10 @@
         "settings": {
           "bundleName": "com.db.imayl.imayl.i18n.i18n"
         }
+      },
+      "requestpackageModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/employees.json"
       }
     },
     "resources": {
