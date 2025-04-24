@@ -1,3 +1,7 @@
 .formpanel{
     border: 1px solid #ccc;
 }
+.formtable{
+    border: 1px solid #ccc;
+    height: 300px;
+}

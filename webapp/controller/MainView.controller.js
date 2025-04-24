@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast"
+], (Controller,MessageToast) => {
     "use strict";
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
@@ -17,7 +18,23 @@ sap.ui.define([
             oModel.setData({
                 packageformDate: new Date(),
                 popovertoDate: new Date(),
-                popoverfromdate: new Date()
+                popoverfromdate: new Date(),
+                requestapackageformtablecount:1,
+                tableData: [{
+                    Image: "1234",
+                    Status: "Received",
+                    IntNumber: "",
+                    RefNumber: "",
+                    RefDate: "",
+                    Package: "",
+                    DeliveryLocation: "",
+                    Weight: "",
+                    Value: "",
+                    MailBox: "",
+                    StorageLocation: "",
+                    Bin: "",
+                    Notes: ""
+                  }]
             });
             // let fromDate = oModel.getProperty("/popoverfromdate");
             // let toDate = oModel.getProperty("/popovertoDate");
@@ -72,6 +89,7 @@ sap.ui.define([
             this.getView().byId("ReceiveaPackage_form").setVisible(false);
             this._setToggleButtonTooltip(false);
             this.byId("mainpage").setSideExpanded(true);
+            this.getOwnerComponent().getModel("requestpackageModel").refresh();
 
         },
         formatDateRange: function (fromdate, toDate) {
@@ -89,7 +107,37 @@ sap.ui.define([
                 return days;
             }
             
-        }
+        },
+        onAddRow:function(){
+            let oModel=this.getOwnerComponent().getModel("requestpackageModel");
+            let aData=oModel.getProperty("/tableData");
+            let aRowcount=oModel.getProperty("/requestapackageformtablecount");
+            aData.push({
+                Image: "1234",
+                    Status: "Received",
+                    IntNumber: "",
+                    RefNumber: "",
+                    RefDate: "",
+                    Package: "",
+                    DeliveryLocation: "",
+                    Weight: "",
+                    Value: "",
+                    MailBox: "",
+                    StorageLocation: "",
+                    Bin: "",
+                    Notes: ""
+            });
+            oModel.setProperty("/requestapackageformtablecount",aRowcount+1);
 
+            oModel.setProperty("/tableData",aData);
+            MessageToast.show("hgfds");
+        },
+        onOpenColumnftlter: function (oEvent) {
+            if (!this.tablePopOver) {
+                this.tablePopOver = sap.ui.xmlfragment("com.db.imayl.imayl.view.tableSettingPopoverRP", this);
+                this.getView().addDependent(this.tablePopOver);
+            }
+            this.tablePopOver.openBy(oEvent.getSource());
+        }
     });
 });

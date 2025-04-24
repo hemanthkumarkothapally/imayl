@@ -9,6 +9,7 @@
     controllerName="com.db.imayl.imayl.controller.MainView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
 >
     <tnt:ToolPage id="mainpage">
         <tnt:header>
@@ -264,7 +265,10 @@
                 <content>
                     <VBox width="100%">
                         <Panel>
-                            <HBox justifyContent="SpaceBetween" height="5rem">
+                            <HBox
+                                justifyContent="SpaceBetween"
+                                height="5rem"
+                            >
                                 <VBox>
                                     <Label text="Date" />
                                     <DatePicker
@@ -305,15 +309,13 @@
                                         type="Number"
                                     />
                                 </VBox>
-                                <ToolbarSpacer ></ToolbarSpacer>
-                                <VBox ><Button
-                            icon="sap-icon://action-settings"
-                            type="Accept"
-                        /></VBox>
                             </HBox>
 
                             <layout:Grid defaultSpan="L6 M6 S12">
-                                <Panel headerText="Ship From" class="formpanel">
+                                <Panel
+                                    headerText="Ship From"
+                                    class="formpanel"
+                                >
                                     <form:SimpleForm
                                         layout="ResponsiveGridLayout"
                                         width="100%"
@@ -361,160 +363,6 @@
                                             <Input placeholder="Phone" />
                                         </form:content>
                                     </form:SimpleForm>
-                                    <!-- <form:Form>
-                                    
-                                        <form:layout>
-                                            <form:ResponsiveGridLayout
-                                                labelSpanXL="4"
-                                                labelSpanL="3"
-                                                labelSpanM="4"
-                                                labelSpanS="12"
-                                                adjustLabelSpan="false"
-                                                emptySpanXL="0"
-                                                emptySpanL="4"
-                                                emptySpanM="0"
-                                                emptySpanS="0"
-                                                columnsXL="2"
-                                                columnsL="1"
-                                                columnsM="1"
-                                                singleContainerFullSize="false"
-                                            />
-                                        </form:layout>
-                                        <form:formContainers>
-                                            <form:FormContainer>
-                                                <form:formElements>
-                                                    <form:FormElement
-                                                        label="First Name"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="First Name"
-                                                                width="50%"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Last Name"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Last Name"
-                                                                width="50%"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Company Name"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Company Name"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Email ID"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Email ID"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="MailStop/Building"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="MailStop/Building"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Address 1"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Address 1"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Address 2"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Address 2"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="City"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="City"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="State"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="State"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Zipcode"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Zipcode"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Country"
-                                                    >
-                                                        <form:fields>
-                                                            <Select>
-                                                                <core:Item
-                                                                    key="IN"
-                                                                    text="India"
-                                                                />
-                                                                <core:Item
-                                                                    key="US"
-                                                                    text="USA"
-                                                                />
-                                                            </Select>
-                                                        </form:fields>
-                                                    </form:FormElement>
-
-                                                    <form:FormElement
-                                                        label="Phone"
-                                                    >
-                                                        <form:fields>
-                                                            <Input
-                                                                placeholder="Phone"
-                                                            />
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                                </form:formElements>
-                                            </form:FormContainer>
-                                        </form:formContainers>
-                                    </form:Form> -->
                                 </Panel>
                                 <Panel class="formpanel">
                                     <headerToolbar>
@@ -568,53 +416,208 @@
                                     </form:SimpleForm>
                                 </Panel>
                             </layout:Grid>
-                            <Table popinLayout="GridSmall">
-                                <columns>
-                                    <Column>
+                            <table:Table
+                                class="formtable"
+                                width="100%"
+                                columnHeaderVisible="true"
+                                rows="{requestpackageModel>/tableData}"
+                                selectionMode="None"
+                                alternateRowColors="true"
+                                
+                            >
+                                <!-- <table:rowMode>
+                                    <rowmodes:Auto
+                                        maxRowCount="{requestpackageModel>/requestapackageformtablecount}"
+                                    />
+                                </table:rowMode> -->
+                                <table:rowMode>
+                                    <rowmodes:Fixed rowCount="5"></rowmodes:Fixed>
+                                </table:rowMode>
+                                <table:extension>
+                                    <OverflowToolbar style="Clear">
+                                        <Title
+                                            id="title"
+                                            text="Products"
+                                        />
+
+                                        <ToolbarSpacer ></ToolbarSpacer>
+                                        <SearchField
+                                            placeholder="Filter"
+                                            value="{ui>/globalFilter}"
+                                            search="filterGlobally"
+                                            width="15rem"
+                                        />
+                                        <Button
+                                            icon="sap-icon://decline"
+                                            tooltip="Clear all filters"
+                                            press="clearAllFilters"
+                                        />
+                                        <Button
+                                            icon="sap-icon://action-settings"
+                                            press="onOpenColumnftlter"
+                                        />
+                                    </OverflowToolbar>
+                                </table:extension>
+                                <table:columns>
+                                    <table:Column width="7rem">
                                         <Label text="Image" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Text
+                                                text="{requestpackageModel>Image}"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Status" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <ComboBox
+                                                selectedKey="{requestpackageModel>Status}"
+                                            >
+                                                <items>
+                                                    <core:Item
+                                                        key="Received"
+                                                        text="Received"
+                                                    />
+                                                    <core:Item
+                                                        key="Tender"
+                                                        text="Tender"
+                                                    />
+                                                    <core:Item
+                                                        key="Research"
+                                                        text="Research"
+                                                    />
+                                                    <core:Item
+                                                        key="Delivered"
+                                                        text="Delivered"
+                                                    />
+                                                    <core:Item
+                                                        key="Forward"
+                                                        text="Forward"
+                                                    />
+                                                </items>
+                                            </ComboBox>
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Int #" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Text
+                                                text="{requestpackageModel>}"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column
+                                        filterProperty="Ref"
+                                        width="8rem"
+                                    >
                                         <Label text="Ref #" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Image}"
+                                                type="Text"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Ref Date" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <DatePicker />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Package" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Text text="hgfdsdfghj" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Delivery Location" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Text text="hgfdsdfghj" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
                                         <Label text="Weight" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Weight}"
+                                                type="Number"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
                                         <Label text="Value" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Status}"
+                                                type="Number"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
                                         <Label text="Mail Box" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Status}"
+                                                type="Text"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Storage Location" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Status}"
+                                                type="Text"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
                                         <Label text="Bin" />
-                                    </Column>
-                                    <Column>
+                                        <table:template>
+                                            <Input
+                                                value="{requestpackageModel>Status}"
+                                                type="Text"
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="4rem">
                                         <Label text="Notes" />
-                                    </Column>
-                                    <Column>
+                                        <table:template >
+                                            <core:Icon
+                                                src="sap-icon://notes"
+                                                press="onAddNotes"
+                                                
+                                            />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="4rem">
                                         <Label text="Action" />
-                                    </Column>
-                                </columns>
-                            </Table>
+                                        <table:template>
+                                            <HBox justifyContent="SpaceBetween">
+                                                <core:Icon
+                                                    src="sap-icon://sys-add"
+                                                    color="blue"
+                                                    press="onAddRow"
+                                                />
+                                                <core:Icon
+                                                    src="sap-icon://sys-minus"
+                                                    color="red"
+                                                    press="onDeleteRow"
+                                                />
+                                            </HBox>
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>
+
+                        <HBox height="6rem" justifyContent="SpaceBetween" alignItems="Center">
+                        <Button text="Cancel" press="oncancel"></Button>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <Button text="Save" icon="sap-icon://save" type="Emphasized"></Button>
+                        </HBox>
                         </Panel>
+
                     </VBox>
                 </content>
             </Page>
