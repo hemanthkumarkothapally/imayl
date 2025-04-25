@@ -154,12 +154,14 @@
                         alignContent="SpaceBetween"
                         alignItems="Stretch"
                         width="100%"
-                        justifyContent="Center"
+                        justifyContent="SpaceBetween"
                     >
                         <GenericTile
                             header="All Other Packages"
                             frameType="TwoByHalf"
                             press="press"
+                            width="30rem"
+                            backgroundColor="red"
                         >
                             <TileContent
                                 unit="Unit"
@@ -176,6 +178,7 @@
                             header="Missing Data Packages"
                             frameType="TwoByHalf"
                             press="press"
+                            width="30rem"
                         >
                             <TileContent
                                 unit="Unit"
@@ -417,6 +420,7 @@
                                 </Panel>
                             </layout:Grid>
                             <table:Table
+                            id="formtable"
                                 class="formtable"
                                 width="100%"
                                 columnHeaderVisible="true"
@@ -459,9 +463,9 @@
                                     </OverflowToolbar>
                                 </table:extension>
                                 <table:columns>
-                                    <table:Column width="7rem">
+                                    <table:Column width="7rem" >
                                         <Label text="Image" />
-                                        <table:template>
+                                        <table:template >
                                             <Text
                                                 text="{requestpackageModel>Image}"
                                             />
@@ -502,7 +506,7 @@
                                         <Label text="Int #" />
                                         <table:template>
                                             <Text
-                                                text="{requestpackageModel>}"
+                                                text="{requestpackageModel>IntNumber}"
                                             />
                                         </table:template>
                                     </table:Column>
@@ -513,27 +517,52 @@
                                         <Label text="Ref #" />
                                         <table:template>
                                             <Input
-                                                value="{requestpackageModel>Image}"
+                                                value="{requestpackageModel>RefNumber}"
                                                 type="Text"
                                             />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="8rem">
+                                    <table:Column width="9rem">
                                         <Label text="Ref Date" />
                                         <table:template>
-                                            <DatePicker />
+                                            <DatePicker value="{requestpackageModel>RefDate}" valueFormat="MM/dd/yyyy" displayFormat="MM/dd/yyyy"/>
                                         </table:template>
                                     </table:Column>
                                     <table:Column width="8rem">
                                         <Label text="Package" />
                                         <table:template>
-                                            <Text text="hgfdsdfghj" />
+                                            <Text text="" />
                                         </table:template>
                                     </table:Column>
                                     <table:Column width="8rem">
                                         <Label text="Delivery Location" />
                                         <table:template>
-                                            <Text text="hgfdsdfghj" />
+                                        <ComboBox
+                                                selectedKey="{requestpackageModel>Status}"
+                                            >
+                                                <items>
+                                                    <core:Item
+                                                        key="Received"
+                                                        text="Received"
+                                                    />
+                                                    <core:Item
+                                                        key="Tender"
+                                                        text="Tender"
+                                                    />
+                                                    <core:Item
+                                                        key="Research"
+                                                        text="Research"
+                                                    />
+                                                    <core:Item
+                                                        key="Delivered"
+                                                        text="Delivered"
+                                                    />
+                                                    <core:Item
+                                                        key="Forward"
+                                                        text="Forward"
+                                                    />
+                                                </items>
+                                            </ComboBox>
                                         </table:template>
                                     </table:Column>
                                     <table:Column width="7rem">
@@ -594,7 +623,7 @@
                                     <table:Column width="4rem">
                                         <Label text="Action" />
                                         <table:template>
-                                            <HBox justifyContent="SpaceBetween">
+                                            <HBox justifyContent="Center">
                                                 <core:Icon
                                                     src="sap-icon://sys-add"
                                                     color="blue"

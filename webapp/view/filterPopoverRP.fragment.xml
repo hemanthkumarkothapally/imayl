@@ -1,65 +1,3 @@
-<!-- <core:FragmentDefinition
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
->
-    <Popover
-        id="filterPopover"
-        title="Selection Criteria"
-        placement="Bottom"
-        initialFocus="apply"
-    >
-        <footer>
-            <OverflowToolbar>
-                <Button
-                    text="Cancel"
-                    press=".handleCancelPress"
-                />
-                <ToolbarSpacer />
-                <Button
-                    id="apply"
-                    text="Apply"
-                    press=".handleApplyPress"
-					type="Emphasized"
-                />
-            </OverflowToolbar>
-        </footer>
-		<HBox justifyContent="SpaceAround" width="20rem">
-		<VBox >
-        <Text text="From Date" />
-        <DatePicker
-            id="popoverfromdate"
-            value="{path: 'requestpackageModel>/popoverfromdate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
-            valueFormat="MM/dd/YYYY"
-            displayFormat="MM/dd/YYYY"
-			width="8rem"
-        />
-		</VBox>
-		<VBox >
-        <Text text="To Date" />
-		<DatePicker
-            id="popovertoDate"
-            value="{path: 'requestpackageModel>/popovertoDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
-            valueFormat="MM/dd/YYYY"
-            displayFormat="MM/dd/YYYY"
-			width="8rem"
-        />
-		</VBox>
-		</HBox>
-		<VBox justifyContent="SpaceBetween" width="20rem">
-		<Text text="Date Exception"></Text>
-		<ComboBox selectedKey="All">
-		<core:Item key="All" text="All"></core:Item>
-		<core:Item key="RecipientEmailMissing" text="RecipientEmailMissing"></core:Item>
-		<core:Item key="RecipientNameMissing" text="RecipientNameMissing"></core:Item>
-		</ComboBox>
-		</VBox>
-		<VBox >
-		<Text text="Ship To Name"></Text>
-        <Input type="Text"></Input>
-		</VBox>
-    </Popover>
-</core:FragmentDefinition> -->
-
 <core:FragmentDefinition
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
@@ -70,6 +8,9 @@
         placement="Bottom"
         initialFocus="apply"
         class="sapUiContentPadding" 
+        contentWidth="260px"
+        contentHeight="230px"
+        
     >
         <!-- Footer -->
         <footer >
@@ -88,15 +29,8 @@
             </OverflowToolbar>
         </footer>
 
-        <!-- Content -->
-        <VBox
-            
-            class="sapUiSmallMargin"
-        >
             <!-- Date Range Section -->
             <HBox
-                justifyContent="Start"
-                alignItems="Center"
                 class="sapUiSmallMarginBottom" 
             >
                 <VBox alignItems="Start">
@@ -106,7 +40,7 @@
                         value="{path: 'requestpackageModel>/popoverfromdate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
                         valueFormat="MM/dd/YYYY"
                         displayFormat="MM/dd/YYYY"
-                        width="8rem"
+                        width="115px"
                     />
                 </VBox>
                 <VBox alignItems="Start">
@@ -116,7 +50,7 @@
                         value="{path: 'requestpackageModel>/popovertoDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
                         valueFormat="MM/dd/YYYY"
                         displayFormat="MM/dd/YYYY"
-                        width="8rem"
+                        width="115px"
                     />
                 </VBox>
             </HBox>
@@ -128,7 +62,7 @@
                 <Text text="Date Exception" />
                 <ComboBox
                     selectedKey="All"
-                    width="15rem" 
+                    width="220px" 
                 >
                     <core:Item key="All" text="All" />
                     <core:Item key="RecipientEmailMissing" text="Recipient Email Missing" />
@@ -141,9 +75,8 @@
                 <Text text="Ship To Name" />
                 <Input
                     type="Text"
-                    width="15rem" 
+                    width="220px" 
                 />
             </VBox>
-        </VBox>
     </Popover>
 </core:FragmentDefinition>

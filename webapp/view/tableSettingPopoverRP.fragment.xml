@@ -9,12 +9,34 @@
         title="Column Selection"
         placement="Bottom"
         showHeader="true"
-        contentWidth="200px">
+        contentWidth="190px"
+        contentHeight="230px"
+        >
 
         <VBox class="sapUiSmallMargin">
             <SearchField placeholder="Search" liveChange="onSearchColumn" />
-            <CheckBox text="Select All" selected="{viewModel>/selectAll}" select="onSelectAllColumns" />
-            <VBox id="columnListVBox" />
+            <CheckBox id="CHK" text="Select All" select="onSelectAllColumns" useEntireWidth="true" />
+            <List id="CHKList"
+			items="{requestpackageModel>/tableCollection}"
+			selectionChange=".onSelectionChange"
+			mode="MultiSelect"
+			includeItemInSelection="true">
+            <StandardListItem title="{requestpackageModel>title}"></StandardListItem>
+            </List>
+            <!-- <CheckBox id="ImageCHK" text="Image"></CheckBox>
+            <CheckBox id="StatusCHK" text="Status"></CheckBox>
+            <CheckBox id="IntCHK" text="Int #"></CheckBox>
+            <CheckBox id="RefCHK" text="Ref #"></CheckBox>
+            <CheckBox id="RefDateCHK" text="Ref Date"></CheckBox>
+            <CheckBox id="PackageCHK" text="Package"></CheckBox>
+            <CheckBox id="DeliveryCHK" text="Delivery Location"></CheckBox>
+            <CheckBox id="WeightCHK" text="Weight"></CheckBox>
+            <CheckBox id="ValueCHK" text="Value"></CheckBox>
+            <CheckBox id="MailBoxCHK" text="Mail Box"></CheckBox>
+            <CheckBox id="StorageCHK" text="Storage Location"></CheckBox>
+            <CheckBox id="BinCHK" text="Bin"></CheckBox>
+            <CheckBox id="NotesCHK" text="Notes"></CheckBox> -->
+            
         </VBox>
 
         <footer>

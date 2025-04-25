@@ -1,7 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-], (Controller,MessageToast) => {
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], (Controller, MessageToast, Filter, FilterOperator) => {
     "use strict";
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
@@ -14,18 +16,18 @@ sap.ui.define([
             // obj[packageformDate] = newdate;
             // obj[popovertoDate] = newdate;
             // obj[popoverfromdate] = newdate;
-            let oModel= this.getOwnerComponent().getModel("requestpackageModel");
+            let oModel = this.getOwnerComponent().getModel("requestpackageModel");
             oModel.setData({
                 packageformDate: new Date(),
                 popovertoDate: new Date(),
                 popoverfromdate: new Date(),
-                requestapackageformtablecount:1,
+                requestapackageformtablecount: 1,
                 tableData: [{
                     Image: "1234",
                     Status: "Received",
                     IntNumber: "",
                     RefNumber: "",
-                    RefDate: "",
+                    RefDate: new Date(),
                     Package: "",
                     DeliveryLocation: "",
                     Weight: "",
@@ -34,7 +36,22 @@ sap.ui.define([
                     StorageLocation: "",
                     Bin: "",
                     Notes: ""
-                  }]
+                }],
+                tableCollection: [
+                    { title: "Image" },
+                    { title: "Status" },
+                    { title: "Int #" },
+                    { title: "Ref #" },
+                    { title: "RefDate" },
+                    { title: "Package" },
+                    { title: "DeliveryLocation" },
+                    { title: "Weight" },
+                    { title: "Value" },
+                    { title: "MailBox" },
+                    { title: "StorageLocation" },
+                    { title: "Bin" },
+                    { title: "Notes" }
+                ]
             });
             // let fromDate = oModel.getProperty("/popoverfromdate");
             // let toDate = oModel.getProperty("/popovertoDate");
@@ -89,7 +106,32 @@ sap.ui.define([
             this.getView().byId("ReceiveaPackage_form").setVisible(false);
             this._setToggleButtonTooltip(false);
             this.byId("mainpage").setSideExpanded(true);
-            this.getOwnerComponent().getModel("requestpackageModel").refresh();
+
+                // Get the model
+                let oModel = this.getOwnerComponent().getModel("requestpackageModel");
+                
+                // Create a new array with just one empty row
+                let aNewData = [{
+                    Image: "",
+                    Status: "Received",
+                    IntNumber: "",
+                    RefNumber: "",
+                    RefDate: new Date(),
+                    Package: "Box",
+                    DeliveryLocation: "",
+                    Weight: "",
+                    Value: "",
+                    MailBox: "",
+                    StorageLocation: "",
+                    Bin: "",
+                    Notes: ""
+                }];
+                
+                // Reset the row count to 1
+                oModel.setProperty("/requestapackageformtablecount", 1);
+                
+                // Set the new data to the model
+                oModel.setProperty("/tableData", aNewData);
 
         },
         formatDateRange: function (fromdate, toDate) {
@@ -100,37 +142,75 @@ sap.ui.define([
             if (!fromDate || !toDate) return "";
             let diffTime = toDate.getTime() - fromDate.getTime();
             let days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            if(days==0){
+            if (days == 0) {
                 return 1;
             }
-            else{
+            else {
                 return days;
             }
-            
-        },
-        onAddRow:function(){
-            let oModel=this.getOwnerComponent().getModel("requestpackageModel");
-            let aData=oModel.getProperty("/tableData");
-            let aRowcount=oModel.getProperty("/requestapackageformtablecount");
-            aData.push({
-                Image: "1234",
-                    Status: "Received",
-                    IntNumber: "",
-                    RefNumber: "",
-                    RefDate: "",
-                    Package: "",
-                    DeliveryLocation: "",
-                    Weight: "",
-                    Value: "",
-                    MailBox: "",
-                    StorageLocation: "",
-                    Bin: "",
-                    Notes: ""
-            });
-            oModel.setProperty("/requestapackageformtablecount",aRowcount+1);
 
-            oModel.setProperty("/tableData",aData);
-            MessageToast.show("hgfds");
+        },
+        onAddRow: function () {
+            let oModel = this.getOwnerComponent().getModel("requestpackageModel");
+            let aData = oModel.getProperty("/tableData");
+            let aRowcount = oModel.getProperty("/requestapackageformtablecount");
+            aData.push({
+                Image: "",
+                Status: "Received",
+                IntNumber: "",
+                RefNumber: "",
+                RefDate: new Date(),
+                Package: "Box",
+                DeliveryLocation: "",
+                Weight: "",
+                Value: "",
+                MailBox: "",
+                StorageLocation: "",
+                Bin: "",
+                Notes: ""
+            });
+            oModel.setProperty("/requestapackageformtablecount", aRowcount + 1);
+
+            oModel.setProperty("/tableData", aData);
+        },
+        onDeleteRow: function (oEvent) {
+            // Get the row context from the event's source
+            let oSource = oEvent.getSource();
+            let oBindingContext = oSource.getBindingContext("requestpackageModel");
+
+            // If no binding context is found, exit
+            if (!oBindingContext) {
+                return;
+            }
+
+            // Get the row index (path) from the binding context
+            let sPath = oBindingContext.getPath();
+            let iIndex = parseInt(sPath.substring(sPath.lastIndexOf('/') + 1));
+
+            // Get the model and data
+            let oModel = this.getOwnerComponent().getModel("requestpackageModel");
+            let aData = oModel.getProperty("/tableData");
+            let aRowcount = oModel.getProperty("/requestapackageformtablecount");
+            // Check if there's only one row in the table
+            if (aData.length <= 1) {
+                // Don't allow deletion if only one row exists
+                sap.m.MessageToast.show("Cannot delete the row");
+                return;
+            }
+
+            // Remove the row at the specified index
+            if (iIndex >= 0 && iIndex < aData.length) {
+                aData.splice(iIndex, 1);
+                aRowcount = Math.max(0, aRowcount - 1);
+
+                // Update model
+                oModel.setProperty("/requestapackageformtablecount", aRowcount);
+                oModel.setProperty("/tableData", aData);
+
+                // Show success message
+                sap.m.MessageToast.show("Row deleted successfully");
+            }
+
         },
         onOpenColumnftlter: function (oEvent) {
             if (!this.tablePopOver) {
@@ -138,6 +218,109 @@ sap.ui.define([
                 this.getView().addDependent(this.tablePopOver);
             }
             this.tablePopOver.openBy(oEvent.getSource());
+        },
+        onSelectAllColumns: function (oEvent) {
+            let aselected = oEvent.getParameter("selected");
+            var oList = oEvent.getSource().getParent().getItems()[2];
+            let aListitems = oEvent.getSource().getParent().getItems()[2].getItems();
+            aListitems.forEach(function (oItem) {
+                oList.setSelectedItem(oItem, aselected);
+            });
+        },
+        // onApplyColumnChanges: function () {
+        //         var oTable = this.byId("formtable"); // Replace with your actual table ID
+        //         var aColumns = oTable.getColumns();
+            
+        //         var oList = sap.ui.getCore().byId("CHKList");
+        //         var aSelectedItems = oList.getSelectedItems();
+        //         var aSelectedTitles = aSelectedItems.map(function (oItem) {
+        //             return oItem.getTitle();
+        //         });
+            
+        //         aColumns.forEach(function (oColumn, index) {
+        //             // Try different approaches to get the header text
+        //             var sHeaderText;
+        //             var oHeader = oColumn.getHeader();
+                    
+        //             // If header is a control with getText method
+        //             if (oHeader && typeof oHeader.getText === "function") {
+        //                 sHeaderText = oHeader.getText();
+        //             } 
+        //             // If header is a string
+        //             else if (typeof oHeader === "string") {
+        //                 sHeaderText = oHeader;
+        //             }
+        //             // If header is a control with a title property
+        //             else if (oHeader && oHeader.getProperty && typeof oHeader.getProperty === "function") {
+        //                 sHeaderText = oHeader.getProperty("text") || oHeader.getProperty("title");
+        //             }
+                    
+        //             // If we have the header text, check if it's in the selected items
+        //             if (sHeaderText) {
+        //                 var bVisible = aSelectedTitles.includes(sHeaderText);
+        //                 oColumn.setVisible(bVisible);
+        //             }
+        //         });
+        //         this.tablePopOver.close();
+            
+            
+        // },
+        onApplyColumnChanges: function () {
+            var oTable = this.byId("formtable");
+            var aColumns = oTable.getColumns();
+            
+            var oList = sap.ui.getCore().byId("CHKList");
+            var aSelectedItems = oList.getSelectedItems();
+            var aSelectedTitles = aSelectedItems.map(function (oItem) {
+                return oItem.getTitle();
+            });
+            
+            aColumns.forEach(function (oColumn) {
+                // Try different approaches to get the header text
+                var sHeaderText;
+                
+                // Try standard methods depending on the UI5 version and control type
+                if (typeof oColumn.getLabel === "function") {
+                    var oLabel = oColumn.getLabel();
+                    if (oLabel && typeof oLabel.getText === "function") {
+                        sHeaderText = oLabel.getText();
+                    }
+                } else if (typeof oColumn.getHeader === "function") {
+                    var oHeader = oColumn.getHeader();
+                    if (typeof oHeader === "string") {
+                        sHeaderText = oHeader;
+                    } else if (oHeader && typeof oHeader.getText === "function") {
+                        sHeaderText = oHeader.getText();
+                    }
+                } else if (typeof oColumn.getHeaderText === "function") {
+                    sHeaderText = oColumn.getHeaderText();
+                }
+                
+                // If we have the header text, check if it's in the selected items
+                if (sHeaderText) {
+                    var bVisible = aSelectedTitles.includes(sHeaderText);
+                    oColumn.setVisible(bVisible);
+                }
+            });
+            
+            this.tablePopOver.close();
+        },
+        onCancelColumnPopover: function () {
+            this.tablePopOver.close();
+        },
+        onSearchColumn: function (oEvent) {
+            // let sQuery=oEvent.getParameter("newValue").toLocaleLowerCase();
+            // let aCheckboxIds=["ImageCHK","StatusCHK","IntCHK","RefCHK","RefDateCHK","PackageCHK","DeliveryCHK",""]
+            // console.log(sQuery);
+            var aFilters = [];
+            var sQuery = oEvent.getSource().getValue();
+            if (sQuery && sQuery.length > 0) {
+                var filter = new Filter("title", FilterOperator.Contains, sQuery);
+                aFilters.push(filter);
+            }
+            var oList = sap.ui.getCore().byId("CHKList");
+            var oBinding = oList.getBinding("items");
+            oBinding.filter(aFilters);
         }
     });
 });
