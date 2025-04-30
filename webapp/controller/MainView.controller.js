@@ -37,6 +37,7 @@ sap.ui.define([
                     Bin: "",
                     Notes: ""
                 }],
+                aliasList:[{aliasName:"weer"}],
                 tableCollection: [
                     { title: "Image" },
                     { title: "Status" },
@@ -80,6 +81,24 @@ sap.ui.define([
 
             oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
         },
+        onItemSelect: function (oEvent) {
+            let oItem = oEvent.getParameter("item").getKey();
+            let oNavContainer = this.byId("maincontainer");
+            switch (oItem) {
+                case "1":
+                    oNavContainer.to(this.byId("page1"));
+                    break;
+                case "2":
+                    oNavContainer.to(this.byId("ReceiveaPackage_main"));
+                    break;
+                case "4":
+                    oNavContainer.to(this.byId("UserManagementpage"));
+                    break;
+                default:
+                    oNavContainer.to(this.byId("page1"));
+                    break;
+            }
+        },
         onFilterselection: function (oEvent) {
             if (!this.filterPopOver) {
                 this.filterPopOver = sap.ui.xmlfragment("com.db.imayl.imayl.view.filterPopoverRP", this);
@@ -94,44 +113,50 @@ sap.ui.define([
             this.filterPopOver.close();
         },
         onAddReceiveAPackage: function () {
-            this.getView().byId("ReceiveaPackage_main").setVisible(false);
-            this.getView().byId("ReceiveaPackage_form").setVisible(true);
-            this._setToggleButtonTooltip(true);
-            this.byId("mainpage").setSideExpanded(false);
-            // console.log(aReceive_a_Package_mainpage);
-            // console.log(aReceive_a_Package_formpage);
+            // this.getView().byId("ReceiveaPackage_main").setVisible(false);
+            // this.getView().byId("ReceiveaPackage_form").setVisible(true);
+            // this._setToggleButtonTooltip(true);
+            // this.byId("mainpage").setSideExpanded(false);
+            // // console.log(aReceive_a_Package_mainpage);
+            // // console.log(aReceive_a_Package_formpage);
+            // console.log("wertyut");
+            let oNavContainer = this.byId("maincontainer");
+            oNavContainer.to(this.byId("ReceiveaPackage_form"));
+
         },
         oncancel: function () {
-            this.getView().byId("ReceiveaPackage_main").setVisible(true);
-            this.getView().byId("ReceiveaPackage_form").setVisible(false);
-            this._setToggleButtonTooltip(false);
-            this.byId("mainpage").setSideExpanded(true);
+            // this.getView().byId("ReceiveaPackage_main").setVisible(true);
+            // this.getView().byId("ReceiveaPackage_form").setVisible(false);
+            // this._setToggleButtonTooltip(false);
+            // this.byId("mainpage").setSideExpanded(true);
 
-                // Get the model
-                let oModel = this.getOwnerComponent().getModel("requestpackageModel");
-                
-                // Create a new array with just one empty row
-                let aNewData = [{
-                    Image: "",
-                    Status: "Received",
-                    IntNumber: "",
-                    RefNumber: "",
-                    RefDate: new Date(),
-                    Package: "Box",
-                    DeliveryLocation: "",
-                    Weight: "",
-                    Value: "",
-                    MailBox: "",
-                    StorageLocation: "",
-                    Bin: "",
-                    Notes: ""
-                }];
-                
-                // Reset the row count to 1
-                oModel.setProperty("/requestapackageformtablecount", 1);
-                
-                // Set the new data to the model
-                oModel.setProperty("/tableData", aNewData);
+            // Get the model
+            let oModel = this.getOwnerComponent().getModel("requestpackageModel");
+
+            // Create a new array with just one empty row
+            let aNewData = [{
+                Image: "",
+                Status: "Received",
+                IntNumber: "",
+                RefNumber: "",
+                RefDate: new Date(),
+                Package: "Box",
+                DeliveryLocation: "",
+                Weight: "",
+                Value: "",
+                MailBox: "",
+                StorageLocation: "",
+                Bin: "",
+                Notes: ""
+            }];
+
+            // Reset the row count to 1
+            oModel.setProperty("/requestapackageformtablecount", 1);
+
+            // Set the new data to the model
+            oModel.setProperty("/tableData", aNewData);
+            let oNavContainer = this.byId("maincontainer");
+            oNavContainer.to(this.byId("ReceiveaPackage_main"));
 
         },
         formatDateRange: function (fromdate, toDate) {
@@ -227,58 +252,20 @@ sap.ui.define([
                 oList.setSelectedItem(oItem, aselected);
             });
         },
-        // onApplyColumnChanges: function () {
-        //         var oTable = this.byId("formtable"); // Replace with your actual table ID
-        //         var aColumns = oTable.getColumns();
-            
-        //         var oList = sap.ui.getCore().byId("CHKList");
-        //         var aSelectedItems = oList.getSelectedItems();
-        //         var aSelectedTitles = aSelectedItems.map(function (oItem) {
-        //             return oItem.getTitle();
-        //         });
-            
-        //         aColumns.forEach(function (oColumn, index) {
-        //             // Try different approaches to get the header text
-        //             var sHeaderText;
-        //             var oHeader = oColumn.getHeader();
-                    
-        //             // If header is a control with getText method
-        //             if (oHeader && typeof oHeader.getText === "function") {
-        //                 sHeaderText = oHeader.getText();
-        //             } 
-        //             // If header is a string
-        //             else if (typeof oHeader === "string") {
-        //                 sHeaderText = oHeader;
-        //             }
-        //             // If header is a control with a title property
-        //             else if (oHeader && oHeader.getProperty && typeof oHeader.getProperty === "function") {
-        //                 sHeaderText = oHeader.getProperty("text") || oHeader.getProperty("title");
-        //             }
-                    
-        //             // If we have the header text, check if it's in the selected items
-        //             if (sHeaderText) {
-        //                 var bVisible = aSelectedTitles.includes(sHeaderText);
-        //                 oColumn.setVisible(bVisible);
-        //             }
-        //         });
-        //         this.tablePopOver.close();
-            
-            
-        // },
         onApplyColumnChanges: function () {
             var oTable = this.byId("formtable");
             var aColumns = oTable.getColumns();
-            
+
             var oList = sap.ui.getCore().byId("CHKList");
             var aSelectedItems = oList.getSelectedItems();
             var aSelectedTitles = aSelectedItems.map(function (oItem) {
                 return oItem.getTitle();
             });
-            
+
             aColumns.forEach(function (oColumn) {
                 // Try different approaches to get the header text
                 var sHeaderText;
-                
+
                 // Try standard methods depending on the UI5 version and control type
                 if (typeof oColumn.getLabel === "function") {
                     var oLabel = oColumn.getLabel();
@@ -295,14 +282,14 @@ sap.ui.define([
                 } else if (typeof oColumn.getHeaderText === "function") {
                     sHeaderText = oColumn.getHeaderText();
                 }
-                
+
                 // If we have the header text, check if it's in the selected items
                 if (sHeaderText) {
                     var bVisible = aSelectedTitles.includes(sHeaderText);
                     oColumn.setVisible(bVisible);
                 }
             });
-            
+
             this.tablePopOver.close();
         },
         onCancelColumnPopover: function () {
@@ -321,6 +308,77 @@ sap.ui.define([
             var oList = sap.ui.getCore().byId("CHKList");
             var oBinding = oList.getBinding("items");
             oBinding.filter(aFilters);
+        },
+        onCreateUser:function(){
+            if (!this.CreateUserdialog) {
+                this.CreateUserdialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateAUser", this);
+                this.getView().addDependent(this.CreateUserdialog);
+            }
+            this.CreateUserdialog.open();
+        },
+        onFileChange: function (oEvent) {
+            const oUploader = oEvent.getSource();
+            const aFiles = oUploader.oFileUpload.files;
+
+            if (aFiles.length > 0) {
+                const sFileName = aFiles[0].name;
+                const oText = this.byId("fileNameText");
+                const oDeleteBtn = this.byId("deleteButton");
+
+                oText.setText(sFileName);
+                oText.setVisible(true);
+                oDeleteBtn.setVisible(true);
+            }
+            this.byId("uploader1").setVisible(false);
+        },
+
+        onUploadComplete: function (oEvent) {
+            sap.m.MessageToast.show("File uploaded successfully: " + oEvent.getParameter("fileName"));
+        },
+
+        onDeleteFile: function () {
+            const oUploader = this.byId("uploader1");
+            const oText = this.byId("fileNameText");
+            const oDeleteBtn = this.byId("deleteButton");
+
+            // Reset input value
+            oUploader.setValue("");
+            oText.setText("");
+            oText.setVisible(false);
+            oDeleteBtn.setVisible(false);
+            this.byId("uploader1").setVisible(true);
+            sap.m.MessageToast.show("File removed.");
+        },
+        onAddAliasRow: function () {
+            // Get the current alias model
+            var oModel = this.getView().getModel("requestpackageModel");
+            var aList = oModel.getProperty("/aliasList");
+        
+            // Push new alias entry
+            aList.push({ aliasName: "New Alias" });
+            oModel.setProperty("/aliasList", aList);
+        
+            sap.m.MessageToast.show("New alias row added.");
+        },
+        
+        onDeleteAliasRow: function (oEvent) {
+            // Get the item from binding context
+            var oItem = oEvent.getSource().getParent();
+            var oBindingContext = oItem.getBindingContext("requestpackageModel");
+            var sPath = oBindingContext.getPath();
+            if(oBindingContext.oModel.oData.aliasList.length>1){
+            // Remove the item from the model
+            var oModel = this.getView().getModel("requestpackageModel");
+            var aList = oModel.getProperty("/aliasList");
+            var iIndex = parseInt(sPath.split("/").pop());
+        
+            if (!isNaN(iIndex)) {
+                aList.splice(iIndex, 1);
+                oModel.setProperty("/aliasList", aList);
+                sap.m.MessageToast.show("Alias row deleted.");
+            }
         }
+        }
+
     });
 });

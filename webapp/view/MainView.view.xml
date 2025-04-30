@@ -1,4 +1,4 @@
-<mvc:View
+<mvc:View xmlns:cards="sap.f.cards" xmlns:unified="sap.ui.unified"
     xmlns:table="sap.ui.table"
     xmlns:core="sap.ui.core"
     xmlns:layout="sap.ui.layout"
@@ -30,10 +30,10 @@
         <tnt:sideContent>
             <tnt:SideNavigation
                 expanded="true"
-                selectedKey="2"
-                width="2rem"
+                itemSelect="onItemSelect"
+                class="mySmallSideNav"
             >
-                <tnt:NavigationList>
+                <tnt:NavigationList width="12rem">
                     <tnt:NavigationListItem
                         text="All Packages"
                         icon="sap-icon://circle-task"
@@ -49,607 +49,735 @@
                         expanded="true"
                         key="2"
                     />
+                    <tnt:NavigationListItem
+                        text="My Packages"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="true"
+                    />
+                    <tnt:NavigationListItem
+                        text="Reports"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="true"
+                    />
+
+                    <tnt:NavigationListItem
+                        text="Set Up"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="false"
+                    >
+                        <tnt:NavigationListItem
+                            text="Carriers"
+                            icon="sap-icon://database"
+                            press=".onQuickActionPress"
+                        />
+                        <tnt:NavigationListItem
+                            text="User Management"
+                            icon="sap-icon://database"
+                            press=".onQuickActionPress"
+                            key="4"
+                        />
+                    </tnt:NavigationListItem>
+                    <tnt:NavigationListItem
+                        text="User Log"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="true"
+                    />
+                    <tnt:NavigationListItem
+                        text="Email Editor"
+                        icon="sap-icon://database"
+                        press=".onQuickActionPress"
+                        expanded="true"
+                    />
                 </tnt:NavigationList>
             </tnt:SideNavigation>
         </tnt:sideContent>
         <tnt:mainContents>
-            <!-- <f:DynamicPage id="ReceiveaPackage_main" visible="true">
-                <f:title>
-                    <f:DynamicPageTitle>
-                        <f:heading>
-                            <Title text="Receive a Package" />
-                        </f:heading>
-                        <f:actions>
-                            <Button
-                                icon="sap-icon://refresh"
-                                type="Critical"
-                            />
-                            <Button
-                                icon="sap-icon://filter"
-                                text="Filter"
-                                type="Emphasized"
-                            />
-                            <Button
-                                icon="sap-icon://add"
-                                type="Emphasized"
-                                press="onAddReceiveAPackage"
-                            />
-                            <Button
-                                icon="sap-icon://action-settings"
-                                type="Accept"
-                            />
-                        </f:actions>
-                    </f:DynamicPageTitle>
-                </f:title>
-                <f:content>
-                <VBox width="100%">
-                
-                <HBox width="100%">
-                 <Title text="Total Packages: 0 in Last 7 Days"></Title>
-                 <Title text="04/16/2025 - 04/22/2025"></Title>
-                </HBox>
-                </VBox>
-                </f:content>
-            </f:DynamicPage> -->
-            <Page
-                id="ReceiveaPackage_main"
-                visible="true"
+            <NavContainer
+                id="maincontainer"
+                initialPage="page1"
             >
-                <customHeader>
-                    <Toolbar>
-                        <Title
-                            text="Receive a Package"
-                            level="H1"
-                        />
-                        <ToolbarSpacer />
+                <pages>
+                    <Page id="page1">
+        <content>
+            <!-- Use a FlexBox layout to arrange the cards -->
+            <FlexBox justifyContent="SpaceAround" alignItems="Center" wrap="Wrap">
+                <!-- First Card -->
+                <f:Card class="document-card">
+                <f:header>
+                <cards:Header title="Aadhar"></cards:Header>
+        </f:header>
+        <f:content>
+            <FlexBox direction="Column" alignItems="Center" justifyContent="Center">
+                
+                <!-- File Uploader -->
+                <unified:FileUploader id="uploader1"
+                                      uploadComplete="onUploadComplete"
+                                      change="onFileChange"
+                                      width="300px"/>
 
-                        <Button
-                            icon="sap-icon://refresh"
-                            type="Critical"
-                        />
-                        <Button
-                            icon="sap-icon://filter"
-                            text="Filter"
-                            type="Emphasized"
-                            press="onFilterselection"
-                        />
-                        <Button
-                            icon="sap-icon://add"
-                            type="Emphasized"
-                            press="onAddReceiveAPackage"
-                        />
-                        <Button
-                            icon="sap-icon://action-settings"
-                            type="Accept"
-                        />
-                    </Toolbar>
-                </customHeader>
-                <Panel>
-                    <Bar>
-                        <contentLeft>
-                            <Title
-                                text="Total Packages: 0 in Last {
+                <!-- Display Uploaded File Name -->
+                <Text id="fileNameText" text="" visible="false"/>
+
+                <!-- Delete Button -->
+                <Button id="deleteButton"
+                        icon="sap-icon://delete"
+                        press="onDeleteFile"
+                        visible="false"
+                        type="Reject"/>
+            </FlexBox>
+        </f:content>
+    </f:Card>
+
+                <!-- Second Card -->
+                
+            </FlexBox>
+        </content>
+        </Page>                   
+                    <Page
+                        id="ReceiveaPackage_main"
+                        visible="true"
+                    >
+                        <customHeader>
+                            <Toolbar>
+                                <Title
+                                    text="Receive a Package"
+                                    level="H1"
+                                />
+                                <ToolbarSpacer />
+
+                                <Button
+                                    icon="sap-icon://refresh"
+                                    type="Critical"
+                                />
+                                <Button
+                                    icon="sap-icon://filter"
+                                    text="Filter"
+                                    type="Emphasized"
+                                    press="onFilterselection"
+                                />
+                                <Button
+                                    icon="sap-icon://add"
+                                    type="Emphasized"
+                                    press="onAddReceiveAPackage"
+                                />
+                                <Button
+                                    icon="sap-icon://action-settings"
+                                    type="Accept"
+                                />
+                            </Toolbar>
+                        </customHeader>
+                        <Panel>
+                            <Bar>
+                                <contentLeft>
+                                    <Title
+                                        text="Total Packages: 0 in Last {
                                 parts: [
                                          {path: 'requestpackageModel>/popoverfromdate'},
                                           {path: 'requestpackageModel>/popovertoDate'}
                                         ],
                                         formatter: '.calculateDays'
                                 } Days"
-                            />
-                        </contentLeft>
-                        <contentRight>
-                            <Title
-                                text="{
+                                    />
+                                </contentLeft>
+                                <contentRight>
+                                    <Title
+                                        text="{
                                 parts: [
                                          {path: 'requestpackageModel>/popoverfromdate'},
                                           {path: 'requestpackageModel>/popovertoDate'}
                                         ],
                                         formatter: '.formatDateRange'
                                 }"
-                            />
-                            <!-- <Title text="{requestpackageModel>/popoverfromdate} - {requestpackageModel>/popovertoDate}" /> -->
-                        </contentRight>
-                    </Bar>
-                    <HBox
-                        alignContent="SpaceBetween"
-                        alignItems="Stretch"
-                        width="100%"
-                        justifyContent="SpaceBetween"
-                    >
-                        <GenericTile
-                            header="All Other Packages"
-                            frameType="TwoByHalf"
-                            press="press"
-                            width="30rem"
-                            backgroundColor="red"
-                        >
-                            <TileContent
-                                unit="Unit"
-                                footer="Footer Text"
-                            >
-                                <NumericContent
-                                    value="12"
-                                    withMargin="false"
-                                    valueColor="Good"
-                                />
-                            </TileContent>
-                        </GenericTile>
-                        <GenericTile
-                            header="Missing Data Packages"
-                            frameType="TwoByHalf"
-                            press="press"
-                            width="30rem"
-                        >
-                            <TileContent
-                                unit="Unit"
-                                footer="Footer Text"
-                            >
-                                <NumericContent
-                                    value="12"
-                                    withMargin="false"
-                                    valueColor="Critical"
-                                />
-                            </TileContent>
-                        </GenericTile>
-                    </HBox>
-                </Panel>
-                <ToolbarSpacer />
-                <Table>
-                    <columns>
-                        <Column>
-                            <Label text="Color Code" />
-                        </Column>
-                        <Column>
-                            <Label text="Status" />
-                        </Column>
-                        <Column>
-                            <Label text="Action" />
-                        </Column>
-                    </columns>
-                    <items>
-                        <ColumnListItem>
-                            <Text />
-                            <ComboBox selectedKey="all">
-                                <items>
-                                    <core:Item
-                                        key="all"
-                                        text="All"
                                     />
-                                    <core:Item
-                                        key="received"
-                                        text="Received"
-                                    />
-                                </items>
-                            </ComboBox>
-                            <Text />
-                        </ColumnListItem>
-                        <ColumnListItem>
-                            <core:Icon
-                                src="sap-icon://color-fill"
-                                color="green"
-                            />
-                            <Text text="Received" />
-                            <cells>
-                                <HBox>
-                                    <Button
-                                        text="Edit"
-                                        type="Transparent"
-                                    />
-                                    <Button
-                                        text="Print Lable"
-                                        type="Transparent"
-                                    />
-                                </HBox>
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-            </Page>
-            <Page
-                id="ReceiveaPackage_form"
-                visible="false"
-            >
-                <customHeader>
-                    <Toolbar>
-                        <Title text="Receive a Package" />
-                        <ToolbarSpacer />
-                        <Button
-                            icon="sap-icon://decline"
-                            press="oncancel"
-                        />
-                    </Toolbar>
-                </customHeader>
-                <!-- <Bar >
-            <contentLeft><Title text="Receive a Package"></Title></contentLeft>
-            <contentRight>
-            <Button icon="sap-icon://decline"></Button>
-            </contentRight>
-            </Bar> -->
-                <content>
-                    <VBox width="100%">
-                        <Panel>
+                                    <!-- <Title text="{requestpackageModel>/popoverfromdate} - {requestpackageModel>/popovertoDate}" /> -->
+                                </contentRight>
+                            </Bar>
                             <HBox
-                                justifyContent="SpaceBetween"
-                                height="5rem"
-                            >
-                                <VBox>
-                                    <Label text="Date" />
-                                    <DatePicker
-                                        value="{path: 'requestpackageModel>/packageformDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
-                                        valueFormat="MM/dd/yyyy"
-                                        displayFormat="MM/dd/yyyy"
-                                    />
-                                </VBox>
-                                <VBox>
-                                    <Label text="Carrier Tracking #" />
-                                    <Input
-                                        type="Text"
-                                        showValueHelp="true"
-                                        valueHelpIconSrc="sap-icon://search"
-                                    />
-                                </VBox>
-                                <VBox>
-                                    <Label text="Tracking Number" />
-                                    <Input
-                                        type="Text"
-                                        showValueHelp="true"
-                                        valueHelpIconSrc="sap-icon://search"
-                                    />
-                                </VBox>
-                                <VBox>
-                                    <Label text="Carrier" />
-                                    <ComboBox>
-                                        <core:Item
-                                            key="1"
-                                            text="Los Vegas Parcel"
-                                        />
-                                    </ComboBox>
-                                </VBox>
-                                <VBox>
-                                    <Label text="Total Pieces" />
-                                    <Input
-                                        value="1"
-                                        type="Number"
-                                    />
-                                </VBox>
-                            </HBox>
-
-                            <layout:Grid defaultSpan="L6 M6 S12">
-                                <Panel
-                                    headerText="Ship From"
-                                    class="formpanel"
-                                >
-                                    <form:SimpleForm
-                                        layout="ResponsiveGridLayout"
-                                        width="100%"
-                                        emptySpanL="0"
-                                        labelSpanL="4"
-                                        columnsL="2"
-                                        adjustLabelSpan="false"
-                                        editable="true"
-                                    >
-                                        <form:content>
-                                            <Label text="First Name" />
-                                            <Input placeholder="First Name" />
-                                            <Label text="Last Name" />
-                                            <Input placeholder="Last Name" />
-                                            <Label text="Company Name" />
-                                            <Input placeholder="Company Name" />
-                                            <Label text="Email ID" />
-                                            <Input placeholder="Email ID" />
-                                            <Label text="MailStop/Building" />
-                                            <Input
-                                                placeholder="MailStop/Building"
-                                            />
-                                            <Label text="Address 1" />
-                                            <Input placeholder="Address 1" />
-                                            <Label text="Address 2" />
-                                            <Input placeholder="Address 2" />
-                                            <Label text="City" />
-                                            <Input placeholder="City" />
-                                            <Label text="State" />
-                                            <Input placeholder="State" />
-                                            <Label text="Zipcode" />
-                                            <Input placeholder="Zipcode" />
-                                            <Label text="Country" />
-                                            <Select>
-                                                <core:Item
-                                                    key="IN"
-                                                    text="India"
-                                                />
-                                                <core:Item
-                                                    key="US"
-                                                    text="USA"
-                                                />
-                                            </Select>
-                                            <Label text="Phone" />
-                                            <Input placeholder="Phone" />
-                                        </form:content>
-                                    </form:SimpleForm>
-                                </Panel>
-                                <Panel class="formpanel">
-                                    <headerToolbar>
-                                        <OverflowToolbar>
-                                            <Title text="Ship To" />
-                                            <ToolbarSpacer />
-                                            <Button icon="sap-icon://search" />
-                                        </OverflowToolbar>
-                                    </headerToolbar>
-                                    <form:SimpleForm
-                                        layout="ResponsiveGridLayout"
-                                        editable="true"
-                                        width="100%"
-                                    >
-                                        <Label text="First Name" />
-                                        <Input placeholder="First Name" />
-                                        <Label text="Last Name" />
-                                        <Input placeholder="Last Name" />
-                                        <Label text="Company Name" />
-                                        <Input placeholder="Company Name" />
-                                        <Label text="Email ID" />
-                                        <Input placeholder="Email ID" />
-                                        <Label text="MailStop/Building" />
-                                        <Input
-                                            placeholder="MailStop/Building"
-                                        />
-                                        <Label text="Address 1" />
-                                        <Input placeholder="Address 1" />
-                                        <Label text="Address 2" />
-                                        <Input placeholder="Address 2" />
-                                        <Label text="City" />
-                                        <Input placeholder="City" />
-                                        <Label text="State" />
-                                        <Input placeholder="State" />
-                                        <Label text="Zipcode" />
-                                        <Input placeholder="Zipcode" />
-                                        <Label text="Country" />
-                                        <Select>
-                                            <core:Item
-                                                key="IN"
-                                                text="India"
-                                            />
-                                            <core:Item
-                                                key="US"
-                                                text="USA"
-                                            />
-                                            <!-- Add more -->
-                                        </Select>
-                                        <Label text="Phone" />
-                                        <Input placeholder="Phone" />
-                                    </form:SimpleForm>
-                                </Panel>
-                            </layout:Grid>
-                            <table:Table
-                            id="formtable"
-                                class="formtable"
+                                alignContent="SpaceBetween"
+                                alignItems="Stretch"
                                 width="100%"
-                                columnHeaderVisible="true"
-                                rows="{requestpackageModel>/tableData}"
-                                selectionMode="None"
-                                alternateRowColors="true"
-                                
+                                justifyContent="SpaceBetween"
                             >
-                                <!-- <table:rowMode>
+                                <GenericTile
+                                    header="All Other Packages"
+                                    frameType="TwoByHalf"
+                                    press="press"
+                                    width="30rem"
+                                    backgroundColor="red"
+                                >
+                                    <TileContent
+                                        unit="Unit"
+                                        footer="Footer Text"
+                                    >
+                                        <NumericContent
+                                            value="12"
+                                            withMargin="false"
+                                            valueColor="Good"
+                                        />
+                                    </TileContent>
+                                </GenericTile>
+                                <GenericTile
+                                    header="Missing Data Packages"
+                                    frameType="TwoByHalf"
+                                    press="press"
+                                    width="30rem"
+                                >
+                                    <TileContent
+                                        unit="Unit"
+                                        footer="Footer Text"
+                                    >
+                                        <NumericContent
+                                            value="12"
+                                            withMargin="false"
+                                            valueColor="Critical"
+                                        />
+                                    </TileContent>
+                                </GenericTile>
+                            </HBox>
+                        </Panel>
+                        <ToolbarSpacer />
+                        <Table>
+                            <columns>
+                                <Column>
+                                    <Label text="Color Code" />
+                                </Column>
+                                <Column>
+                                    <Label text="Status" />
+                                </Column>
+                                <Column>
+                                    <Label text="Action" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <Text />
+                                    <ComboBox selectedKey="all">
+                                        <items>
+                                            <core:Item
+                                                key="all"
+                                                text="All"
+                                            />
+                                            <core:Item
+                                                key="received"
+                                                text="Received"
+                                            />
+                                        </items>
+                                    </ComboBox>
+                                    <Text />
+                                </ColumnListItem>
+                                <ColumnListItem>
+                                    <core:Icon
+                                        src="sap-icon://color-fill"
+                                        color="green"
+                                    />
+                                    <Text text="Received" />
+                                    <cells>
+                                        <HBox>
+                                            <Button
+                                                text="Edit"
+                                                type="Transparent"
+                                            />
+                                            <Button
+                                                text="Print Lable"
+                                                type="Transparent"
+                                            />
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Page>
+                    <Page
+                        id="ReceiveaPackage_form"
+                        visible="true"
+                    >
+                        <customHeader>
+                            <Toolbar>
+                                <Title text="Receive a Package" />
+                                <ToolbarSpacer />
+                                <Button
+                                    icon="sap-icon://decline"
+                                    press="oncancel"
+                                />
+                            </Toolbar>
+                        </customHeader>
+                        <content>
+                            <VBox width="100%">
+                                <Panel>
+                                    <HBox
+                                        justifyContent="SpaceBetween"
+                                        height="5rem"
+                                    >
+                                        <VBox>
+                                            <Label text="Date" />
+                                            <DatePicker
+                                                value="{path: 'requestpackageModel>/packageformDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'MM/dd/yyyy' }}"
+                                                valueFormat="MM/dd/yyyy"
+                                                displayFormat="MM/dd/yyyy"
+                                            />
+                                        </VBox>
+                                        <VBox>
+                                            <Label text="Carrier Tracking #" />
+                                            <Input
+                                                type="Text"
+                                                showValueHelp="true"
+                                                valueHelpIconSrc="sap-icon://search"
+                                            />
+                                        </VBox>
+                                        <VBox>
+                                            <Label text="Tracking Number" />
+                                            <Input
+                                                type="Text"
+                                                showValueHelp="true"
+                                                valueHelpIconSrc="sap-icon://search"
+                                            />
+                                        </VBox>
+                                        <VBox>
+                                            <Label text="Carrier" />
+                                            <ComboBox>
+                                                <core:Item
+                                                    key="1"
+                                                    text="Los Vegas Parcel"
+                                                />
+                                            </ComboBox>
+                                        </VBox>
+                                        <VBox>
+                                            <Label text="Total Pieces" />
+                                            <Input
+                                                value="1"
+                                                type="Number"
+                                            />
+                                        </VBox>
+                                    </HBox>
+
+                                    <layout:Grid defaultSpan="L6 M6 S12">
+                                        <Panel
+                                            headerText="Ship From"
+                                            class="formpanel"
+                                        >
+                                            <form:SimpleForm
+                                                layout="ResponsiveGridLayout"
+                                                width="100%"
+                                                emptySpanL="0"
+                                                labelSpanL="4"
+                                                columnsL="2"
+                                                adjustLabelSpan="false"
+                                                editable="true"
+                                            >
+                                                <form:content>
+                                                    <Label text="First Name" />
+                                                    <Input
+                                                        placeholder="First Name"
+                                                    />
+                                                    <Label text="Last Name" />
+                                                    <Input
+                                                        placeholder="Last Name"
+                                                    />
+                                                    <Label
+                                                        text="Company Name"
+                                                    />
+                                                    <Input
+                                                        placeholder="Company Name"
+                                                    />
+                                                    <Label text="Email ID" />
+                                                    <Input
+                                                        placeholder="Email ID"
+                                                    />
+                                                    <Label
+                                                        text="MailStop/Building"
+                                                    />
+                                                    <Input
+                                                        placeholder="MailStop/Building"
+                                                    />
+                                                    <Label text="Address 1" />
+                                                    <Input
+                                                        placeholder="Address 1"
+                                                    />
+                                                    <Label text="Address 2" />
+                                                    <Input
+                                                        placeholder="Address 2"
+                                                    />
+                                                    <Label text="City" />
+                                                    <Input placeholder="City" />
+                                                    <Label text="State" />
+                                                    <Input
+                                                        placeholder="State"
+                                                    />
+                                                    <Label text="Zipcode" />
+                                                    <Input
+                                                        placeholder="Zipcode"
+                                                    />
+                                                    <Label text="Country" />
+                                                    <Select>
+                                                        <core:Item
+                                                            key="IN"
+                                                            text="India"
+                                                        />
+                                                        <core:Item
+                                                            key="US"
+                                                            text="USA"
+                                                        />
+                                                    </Select>
+                                                    <Label text="Phone" />
+                                                    <Input
+                                                        placeholder="Phone"
+                                                    />
+                                                </form:content>
+                                            </form:SimpleForm>
+                                        </Panel>
+                                        <Panel class="formpanel">
+                                            <headerToolbar>
+                                                <OverflowToolbar>
+                                                    <Title text="Ship To" />
+                                                    <ToolbarSpacer />
+                                                    <Button
+                                                        icon="sap-icon://search"
+                                                    />
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <form:SimpleForm
+                                                layout="ResponsiveGridLayout"
+                                                editable="true"
+                                                width="100%"
+                                            >
+                                                <Label text="First Name" />
+                                                <Input
+                                                    placeholder="First Name"
+                                                />
+                                                <Label text="Last Name" />
+                                                <Input
+                                                    placeholder="Last Name"
+                                                />
+                                                <Label text="Company Name" />
+                                                <Input
+                                                    placeholder="Company Name"
+                                                />
+                                                <Label text="Email ID" />
+                                                <Input placeholder="Email ID" />
+                                                <Label
+                                                    text="MailStop/Building"
+                                                />
+                                                <Input
+                                                    placeholder="MailStop/Building"
+                                                />
+                                                <Label text="Address 1" />
+                                                <Input
+                                                    placeholder="Address 1"
+                                                />
+                                                <Label text="Address 2" />
+                                                <Input
+                                                    placeholder="Address 2"
+                                                />
+                                                <Label text="City" />
+                                                <Input placeholder="City" />
+                                                <Label text="State" />
+                                                <Input placeholder="State" />
+                                                <Label text="Zipcode" />
+                                                <Input placeholder="Zipcode" />
+                                                <Label text="Country" />
+                                                <Select>
+                                                    <core:Item
+                                                        key="IN"
+                                                        text="India"
+                                                    />
+                                                    <core:Item
+                                                        key="US"
+                                                        text="USA"
+                                                    />
+                                                    <!-- Add more -->
+                                                </Select>
+                                                <Label text="Phone" />
+                                                <Input placeholder="Phone" />
+                                            </form:SimpleForm>
+                                        </Panel>
+                                    </layout:Grid>
+                                    <table:Table
+                                        id="formtable"
+                                        class="formtable"
+                                        width="100%"
+                                        columnHeaderVisible="true"
+                                        rows="{requestpackageModel>/tableData}"
+                                        selectionMode="None"
+                                        alternateRowColors="true"
+                                    >
+                                        <!-- <table:rowMode>
                                     <rowmodes:Auto
                                         maxRowCount="{requestpackageModel>/requestapackageformtablecount}"
                                     />
                                 </table:rowMode> -->
-                                <table:rowMode>
-                                    <rowmodes:Fixed rowCount="5"></rowmodes:Fixed>
-                                </table:rowMode>
-                                <table:extension>
-                                    <OverflowToolbar style="Clear">
-                                        <Title
-                                            id="title"
-                                            text="Products"
-                                        />
+                                        <table:rowMode>
+                                            <rowmodes:Fixed rowCount="5" />
+                                        </table:rowMode>
+                                        <table:extension>
+                                            <OverflowToolbar style="Clear">
+                                                <Title
+                                                    id="title"
+                                                    text="Products"
+                                                />
 
-                                        <ToolbarSpacer ></ToolbarSpacer>
-                                        <SearchField
-                                            placeholder="Filter"
-                                            value="{ui>/globalFilter}"
-                                            search="filterGlobally"
-                                            width="15rem"
-                                        />
-                                        <Button
-                                            icon="sap-icon://decline"
-                                            tooltip="Clear all filters"
-                                            press="clearAllFilters"
-                                        />
-                                        <Button
-                                            icon="sap-icon://action-settings"
-                                            press="onOpenColumnftlter"
-                                        />
-                                    </OverflowToolbar>
-                                </table:extension>
-                                <table:columns>
-                                    <table:Column width="7rem" >
-                                        <Label text="Image" />
-                                        <table:template >
-                                            <Text
-                                                text="{requestpackageModel>Image}"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Status" />
-                                        <table:template>
-                                            <ComboBox
-                                                selectedKey="{requestpackageModel>Status}"
+                                                <ToolbarSpacer />
+                                                <SearchField
+                                                    placeholder="Filter"
+                                                    value="{ui>/globalFilter}"
+                                                    search="filterGlobally"
+                                                    width="15rem"
+                                                />
+                                                <Button
+                                                    icon="sap-icon://decline"
+                                                    tooltip="Clear all filters"
+                                                    press="clearAllFilters"
+                                                />
+                                                <Button
+                                                    icon="sap-icon://action-settings"
+                                                    press="onOpenColumnftlter"
+                                                />
+                                            </OverflowToolbar>
+                                        </table:extension>
+                                        <table:columns>
+                                            <table:Column width="7rem">
+                                                <Label text="Image" />
+                                                <table:template>
+                                                    <Text
+                                                        text="{requestpackageModel>Image}"
+                                                    />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label text="Status" />
+                                                <table:template>
+                                                    <ComboBox
+                                                        selectedKey="{requestpackageModel>Status}"
+                                                    >
+                                                        <items>
+                                                            <core:Item
+                                                                key="Received"
+                                                                text="Received"
+                                                            />
+                                                            <core:Item
+                                                                key="Tender"
+                                                                text="Tender"
+                                                            />
+                                                            <core:Item
+                                                                key="Research"
+                                                                text="Research"
+                                                            />
+                                                            <core:Item
+                                                                key="Delivered"
+                                                                text="Delivered"
+                                                            />
+                                                            <core:Item
+                                                                key="Forward"
+                                                                text="Forward"
+                                                            />
+                                                        </items>
+                                                    </ComboBox>
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label text="Int #" />
+                                                <table:template>
+                                                    <Text
+                                                        text="{requestpackageModel>IntNumber}"
+                                                    />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column
+                                                filterProperty="Ref"
+                                                width="8rem"
                                             >
-                                                <items>
-                                                    <core:Item
-                                                        key="Received"
-                                                        text="Received"
+                                                <Label text="Ref #" />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>RefNumber}"
+                                                        type="Text"
                                                     />
-                                                    <core:Item
-                                                        key="Tender"
-                                                        text="Tender"
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="9rem">
+                                                <Label text="Ref Date" />
+                                                <table:template>
+                                                    <DatePicker
+                                                        value="{requestpackageModel>RefDate}"
+                                                        valueFormat="MM/dd/yyyy"
+                                                        displayFormat="MM/dd/yyyy"
                                                     />
-                                                    <core:Item
-                                                        key="Research"
-                                                        text="Research"
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label text="Package" />
+                                                <table:template>
+                                                    <Text text="" />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label
+                                                    text="Delivery Location"
+                                                />
+                                                <table:template>
+                                                    <ComboBox
+                                                        selectedKey="{requestpackageModel>Status}"
+                                                    >
+                                                        <items>
+                                                            <core:Item
+                                                                key="Received"
+                                                                text="Received"
+                                                            />
+                                                            <core:Item
+                                                                key="Tender"
+                                                                text="Tender"
+                                                            />
+                                                            <core:Item
+                                                                key="Research"
+                                                                text="Research"
+                                                            />
+                                                            <core:Item
+                                                                key="Delivered"
+                                                                text="Delivered"
+                                                            />
+                                                            <core:Item
+                                                                key="Forward"
+                                                                text="Forward"
+                                                            />
+                                                        </items>
+                                                    </ComboBox>
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="7rem">
+                                                <Label text="Weight" />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>Weight}"
+                                                        type="Number"
                                                     />
-                                                    <core:Item
-                                                        key="Delivered"
-                                                        text="Delivered"
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="7rem">
+                                                <Label text="Value" />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>Status}"
+                                                        type="Number"
                                                     />
-                                                    <core:Item
-                                                        key="Forward"
-                                                        text="Forward"
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="7rem">
+                                                <Label text="Mail Box" />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>Status}"
+                                                        type="Text"
                                                     />
-                                                </items>
-                                            </ComboBox>
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Int #" />
-                                        <table:template>
-                                            <Text
-                                                text="{requestpackageModel>IntNumber}"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column
-                                        filterProperty="Ref"
-                                        width="8rem"
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label
+                                                    text="Storage Location"
+                                                />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>Status}"
+                                                        type="Text"
+                                                    />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="8rem">
+                                                <Label text="Bin" />
+                                                <table:template>
+                                                    <Input
+                                                        value="{requestpackageModel>Status}"
+                                                        type="Text"
+                                                    />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="4rem">
+                                                <Label text="Notes" />
+                                                <table:template>
+                                                    <core:Icon
+                                                        src="sap-icon://notes"
+                                                        press="onAddNotes"
+                                                    />
+                                                </table:template>
+                                            </table:Column>
+                                            <table:Column width="4rem">
+                                                <Label text="Action" />
+                                                <table:template>
+                                                    <HBox
+                                                        justifyContent="Center"
+                                                    >
+                                                        <core:Icon
+                                                            src="sap-icon://sys-add"
+                                                            color="blue"
+                                                            press="onAddRow"
+                                                        />
+                                                        <core:Icon
+                                                            src="sap-icon://sys-minus"
+                                                            color="red"
+                                                            press="onDeleteRow"
+                                                        />
+                                                    </HBox>
+                                                </table:template>
+                                            </table:Column>
+                                        </table:columns>
+                                    </table:Table>
+
+                                    <HBox
+                                        height="6rem"
+                                        justifyContent="SpaceBetween"
+                                        alignItems="Center"
                                     >
-                                        <Label text="Ref #" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>RefNumber}"
-                                                type="Text"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="9rem">
-                                        <Label text="Ref Date" />
-                                        <table:template>
-                                            <DatePicker value="{requestpackageModel>RefDate}" valueFormat="MM/dd/yyyy" displayFormat="MM/dd/yyyy"/>
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Package" />
-                                        <table:template>
-                                            <Text text="" />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Delivery Location" />
-                                        <table:template>
-                                        <ComboBox
-                                                selectedKey="{requestpackageModel>Status}"
-                                            >
-                                                <items>
-                                                    <core:Item
-                                                        key="Received"
-                                                        text="Received"
-                                                    />
-                                                    <core:Item
-                                                        key="Tender"
-                                                        text="Tender"
-                                                    />
-                                                    <core:Item
-                                                        key="Research"
-                                                        text="Research"
-                                                    />
-                                                    <core:Item
-                                                        key="Delivered"
-                                                        text="Delivered"
-                                                    />
-                                                    <core:Item
-                                                        key="Forward"
-                                                        text="Forward"
-                                                    />
-                                                </items>
-                                            </ComboBox>
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="7rem">
-                                        <Label text="Weight" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>Weight}"
-                                                type="Number"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="7rem">
-                                        <Label text="Value" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>Status}"
-                                                type="Number"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="7rem">
-                                        <Label text="Mail Box" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>Status}"
-                                                type="Text"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Storage Location" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>Status}"
-                                                type="Text"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="8rem">
-                                        <Label text="Bin" />
-                                        <table:template>
-                                            <Input
-                                                value="{requestpackageModel>Status}"
-                                                type="Text"
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="4rem">
-                                        <Label text="Notes" />
-                                        <table:template >
-                                            <core:Icon
-                                                src="sap-icon://notes"
-                                                press="onAddNotes"
-                                                
-                                            />
-                                        </table:template>
-                                    </table:Column>
-                                    <table:Column width="4rem">
-                                        <Label text="Action" />
-                                        <table:template>
-                                            <HBox justifyContent="Center">
-                                                <core:Icon
-                                                    src="sap-icon://sys-add"
-                                                    color="blue"
-                                                    press="onAddRow"
-                                                />
-                                                <core:Icon
-                                                    src="sap-icon://sys-minus"
-                                                    color="red"
-                                                    press="onDeleteRow"
-                                                />
-                                            </HBox>
-                                        </table:template>
-                                    </table:Column>
-                                </table:columns>
-                            </table:Table>
+                                        <Button
+                                            text="Cancel"
+                                            press="oncancel"
+                                        />
+                                        <ToolbarSpacer />
+                                        <Button
+                                            text="Save"
+                                            icon="sap-icon://save"
+                                            type="Emphasized"
+                                        />
+                                    </HBox>
+                                </Panel>
+                            </VBox>
+                        </content>
+                    </Page>
+                    <Page id="UserManagementpage">
+                    <customHeader>
+                            <Toolbar>
+                                <Title
+                                    text="User Management"
+                                    level="H1"
+                                />
+                                <ToolbarSpacer />
 
-                        <HBox height="6rem" justifyContent="SpaceBetween" alignItems="Center">
-                        <Button text="Cancel" press="oncancel"></Button>
-                        <ToolbarSpacer ></ToolbarSpacer>
-                        <Button text="Save" icon="sap-icon://save" type="Emphasized"></Button>
-                        </HBox>
-                        </Panel>
-
-                    </VBox>
-                </content>
-            </Page>
+                                <Button
+                                    icon="sap-icon://refresh"
+                                    type="Critical"
+                                />
+                                <Button
+                                    icon="sap-icon://filter"
+                                    text="Filter"
+                                    type="Emphasized"
+                                    press="onFilterselection"
+                                />
+                                <Button
+                                    icon="sap-icon://add"
+                                    type="Emphasized"
+                                    press="onCreateUser"
+                                />
+                                <Button icon="sap-icon://excel-attachment"></Button>
+                                <Button
+                                    icon="sap-icon://action-settings"
+                                    type="Accept"
+                                />
+                            </Toolbar>
+                        </customHeader>
+                    </Page>
+                </pages>
+            </NavContainer>
         </tnt:mainContents>
     </tnt:ToolPage>
 </mvc:View>

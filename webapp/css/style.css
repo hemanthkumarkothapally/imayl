@@ -5,3 +5,23 @@
     border: 1px solid #ccc;
     height: 300px;
 }
+
+.mySmallSideNav {
+    width: 12rem !important;     /* Force the whole side nav to shrink */
+    min-width: 12rem !important;
+    max-width: 12rem !important;
+}
+
+.document-card {
+    width: 320px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.Aliastableclass{
+    border: 1px solid #ccc;
+
+}
+.CreateUserDialog{
+    background-color: rgb(255, 116, 116);
+}
