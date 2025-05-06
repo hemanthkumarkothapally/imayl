@@ -8,6 +8,16 @@ sap.ui.define([
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
         onInit() {
+            this._excelData = [];
+            if (typeof XLSX === 'undefined') {
+                var sScriptUrl = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js";
+                jQuery.getScript(sScriptUrl)
+                    .done(() => console.log("XLSX library loaded successfully."))
+                    .fail(() => {
+                        console.error("Failed to load XLSX library.");
+                        MessageToast.show("Failed to load Excel library.");
+                    });
+            }
             // let newdate=new Date();
             // let obj={};
             // let packageformDate="packageformDate";
@@ -37,27 +47,34 @@ sap.ui.define([
                     Bin: "",
                     Notes: ""
                 }],
-                aliasList:[{aliasName:"weer"}],
-                tableCollection: [
-                    { title: "Image" },
-                    { title: "Status" },
-                    { title: "Int #" },
-                    { title: "Ref #" },
-                    { title: "RefDate" },
-                    { title: "Package" },
-                    { title: "DeliveryLocation" },
-                    { title: "Weight" },
-                    { title: "Value" },
-                    { title: "MailBox" },
-                    { title: "StorageLocation" },
-                    { title: "Bin" },
-                    { title: "Notes" }
-                ]
+                aliasList: [{ aliasName: "" }],
+                tableCollection: [],
+                CreateUserForm: {
+                    accessType: "",
+                    address1: "",
+                    city: "",
+                    country: null,
+                    department: "",
+                    emailID: "",
+                    empID: "",
+                    firstName: "",
+                    language: null,
+                    lastName: "",
+                    location: "",
+                    phone: "",
+                    role: "",
+                    state: "",
+                    status: null,
+                    userType: "",
+                    zipcode: ""
+                },
+                CreateUser:
+                {
+                    notifyme: true,
+                    notifyothers: false,
+                    SMS: true
+                }
             });
-            // let fromDate = oModel.getProperty("/popoverfromdate");
-            // let toDate = oModel.getProperty("/popovertoDate");
-            // this.calculateDays(fromDate, toDate);
-
         },
         _setToggleButtonTooltip: function (bLarge) {
             let oToggleButton = this.byId('sideNavigationToggleButton');
@@ -238,6 +255,49 @@ sap.ui.define([
 
         },
         onOpenColumnftlter: function (oEvent) {
+            let aButton = oEvent.mParameters.id;
+            if (aButton === '__button9') {
+                let aTablecolumns = [
+                    { title: "Image" },
+                    { title: "Status" },
+                    { title: "Int #" },
+                    { title: "Ref #" },
+                    { title: "RefDate" },
+                    { title: "Package" },
+                    { title: "DeliveryLocation" },
+                    { title: "Weight" },
+                    { title: "Value" },
+                    { title: "MailBox" },
+                    { title: "StorageLocation" },
+                    { title: "Bin" },
+                    { title: "Notes" },
+                    { title: "Action" }
+                ];
+                this.getOwnerComponent().getModel("requestpackageModel").setProperty("/tableCollection", aTablecolumns);
+            }
+            else {
+                let aTablecolumns = [
+                    { title: "First Name" },
+                    { title: "Last Name" },
+                    { title: "Role" },
+                    { title: "Department" },
+                    { title: "UserType" },
+                    { title: "Location" },
+                    { title: "Address1" },
+                    { title: "Phone" },
+                    { title: "Email" },
+                    { title: "City" },
+                    { title: "State" },
+                    { title: "Country" },
+                    { title: "Zipcode" },
+                    { title: "Language" },
+                    { title: "Status" },
+                    { title: "Action" }
+
+                ];
+                this.getOwnerComponent().getModel("requestpackageModel").setProperty("/tableCollection", aTablecolumns);
+
+            }
             if (!this.tablePopOver) {
                 this.tablePopOver = sap.ui.xmlfragment("com.db.imayl.imayl.view.tableSettingPopoverRP", this);
                 this.getView().addDependent(this.tablePopOver);
@@ -252,9 +312,16 @@ sap.ui.define([
                 oList.setSelectedItem(oItem, aselected);
             });
         },
-        onApplyColumnChanges: function () {
-            var oTable = this.byId("formtable");
-            var aColumns = oTable.getColumns();
+        onApplyColumnChanges: function (oEvent) {
+            let aButton = oEvent.mParameters.id;git
+            let oTable;
+            if (aButton === '__button9') {
+                oTable = this.byId("formtable");
+            }
+            else {
+                oTable = this.byId("userstable");
+            }
+            let aColumns = oTable.getColumns();
 
             var oList = sap.ui.getCore().byId("CHKList");
             var aSelectedItems = oList.getSelectedItems();
@@ -309,12 +376,20 @@ sap.ui.define([
             var oBinding = oList.getBinding("items");
             oBinding.filter(aFilters);
         },
-        onCreateUser:function(){
+        onCreateUser: function () {
             if (!this.CreateUserdialog) {
                 this.CreateUserdialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateAUser", this);
                 this.getView().addDependent(this.CreateUserdialog);
             }
             this.CreateUserdialog.open();
+            const oModel = this.getView().getModel(); // OData V4 model
+            const oUsersBinding = oModel.bindList("/Users");
+
+            oUsersBinding.requestContexts().then(function (aContexts) {
+                aContexts.forEach(oContext => {
+                    console.log(oContext.getObject());
+                });
+            });
         },
         onFileChange: function (oEvent) {
             const oUploader = oEvent.getSource();
@@ -353,32 +428,142 @@ sap.ui.define([
             // Get the current alias model
             var oModel = this.getView().getModel("requestpackageModel");
             var aList = oModel.getProperty("/aliasList");
-        
+
             // Push new alias entry
             aList.push({ aliasName: "New Alias" });
             oModel.setProperty("/aliasList", aList);
-        
+
             sap.m.MessageToast.show("New alias row added.");
         },
-        
+
         onDeleteAliasRow: function (oEvent) {
             // Get the item from binding context
             var oItem = oEvent.getSource().getParent();
             var oBindingContext = oItem.getBindingContext("requestpackageModel");
             var sPath = oBindingContext.getPath();
-            if(oBindingContext.oModel.oData.aliasList.length>1){
-            // Remove the item from the model
-            var oModel = this.getView().getModel("requestpackageModel");
-            var aList = oModel.getProperty("/aliasList");
-            var iIndex = parseInt(sPath.split("/").pop());
-        
-            if (!isNaN(iIndex)) {
-                aList.splice(iIndex, 1);
-                oModel.setProperty("/aliasList", aList);
-                sap.m.MessageToast.show("Alias row deleted.");
+            if (oBindingContext.oModel.oData.aliasList.length > 1) {
+                // Remove the item from the model
+                var oModel = this.getView().getModel("requestpackageModel");
+                var aList = oModel.getProperty("/aliasList");
+                var iIndex = parseInt(sPath.split("/").pop());
+
+                if (!isNaN(iIndex)) {
+                    aList.splice(iIndex, 1);
+                    oModel.setProperty("/aliasList", aList);
+                    sap.m.MessageToast.show("Alias row deleted.");
+                }
             }
+        },
+        onCreateUserFormClosePress: function () {
+            this.CreateUserdialog.close();
+            let newAlias = [{ aliasName: "" }];
+            this.getOwnerComponent().getModel("requestpackageModel").setProperty("/aliasList", newAlias);
+
+        },
+        onSaveNewUser: function () {
+            let abcd = this.getOwnerComponent().getModel("requestpackageModel").getProperty("/CreateUserForm");
+            console.log(abcd);
+            const oModel = this.getView().getModel(); // OData V4 model
+            const oUsersBinding = oModel.bindList("/Users");
+            oUsersBinding.create(abcd);
+            this.getView().byId("userstable").getBinding("rows").refresh();
+            this.CreateUserdialog.close();
+
+
+        },
+        onDeleteuserRow: function (oEvent) {
+            let oModel = this.getView().getModel();
+            let bookID = oEvent.getSource().getBindingContext().sPath.match(/\(([^)]+)\)/)[1];
+            let oBindList = oModel.bindList("/Users");
+
+            let aFilter = new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, bookID);
+
+            oBindList.filter(aFilter).requestContexts().then(function (aContexts) {
+                aContexts[0].delete();
+            });
+            this.getView().byId("userstable").getBinding("rows").refresh();
+        },
+        onAddExcel: function () {
+            if (!this.Exceldialog) {
+                this.Exceldialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.ExceluploadDialog", this);
+                this.getView().addDependent(this.Exceldialog);
+            }
+            this.Exceldialog.open();
+
+        },
+        onExcelDialogClosePress: function () {
+            var oFileUploader = sap.ui.getCore().byId("fileUploader");
+            this.Exceldialog.close();
+            if (oFileUploader) {
+                oFileUploader.clear();
+            }
+
+        },
+        onExcelFileChange: function (oEvent) {
+            var oFile = oEvent.getParameter("files")[0];
+            if (!oFile) {
+                console.error("No file selected.");
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+                console.log(data);
+                console.log(workbook);
+                this._excelData = [];
+                // if there are more sheets in file -- workbook.SheetNames.forEach((sheetName) => {
+                var XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets['Sheet1'], { header: 1 });
+                console.log(XL_row_object);
+                //to add id to each row
+                // XL_row_object = XL_row_object.map((item, index) => ({
+                //     ...item,
+                //     autoID: Math.floor(Math.random() * 100000000)
+                // }));
+                // this._excelData = this._excelData.concat(XL_row_object);
+                this._excelData = XL_row_object;
+
+                console.log(`Total rows parsed: ${this._excelData.length}`);
+                console.log(this._excelData),
+                    MessageToast.show(`File parsed successfully. ${this._excelData.length} rows ready for upload.`);
+            };
+
+            reader.readAsArrayBuffer(oFile);
+        },
+        onExcelUpload: function (oEvent) {
+
+            var oFileUploader = sap.ui.getCore().byId("fileUploader");
+            // Convert array-of-arrays to array-of-objects
+            var headers = this._excelData[0]; // first row
+            var dataRows = this._excelData.slice(1); // all remaining rows
+            var formattedData = dataRows.map(row => {
+                var obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = String(row[index] || ""); // handle missing values
+                });
+                return obj;
+            });
+
+            // Optional: log the result
+            console.log("Formatted Data:", formattedData);
+
+            // POST to backend (example with OData V4 model)
+            let oModel = this.getView().getModel(); // your OData model
+            formattedData.forEach((entry) => {
+                let oUsersBinding = oModel.bindList("/Users");
+                oUsersBinding.create(entry);
+            });
+            this.Exceldialog.close();
+            if (oFileUploader) {
+                oFileUploader.clear();
+            }
+            // Clear the stored file
+            this._excelData = null;
+            this.getView().byId("userstable").getBinding("rows").refresh();
+
         }
-        }
+
 
     });
 });

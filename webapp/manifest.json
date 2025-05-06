@@ -27,6 +27,17 @@
           }
         }
       }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/delivery/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -68,6 +79,15 @@
       "requestpackageModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/employees.json"
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
       }
     },
     "resources": {
@@ -111,5 +131,9 @@
       "id": "App",
       "async": true
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "comdbimaylimayl"
   }
 }

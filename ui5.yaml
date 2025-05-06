@@ -15,6 +15,11 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - url: https://ccc9e828trial-dev-nexpro-srv.cfapps.us10-001.hana.ondemand.com/
+            authenticationType: NoAuthentication
+            destination: imail-dest
+            path: /odata
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

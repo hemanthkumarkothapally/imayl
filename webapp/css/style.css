@@ -19,9 +19,42 @@
 }
 
 .Aliastableclass{
+    margin-top: 20px;
     border: 1px solid #ccc;
 
 }
 .CreateUserDialog{
     background-color: rgb(255, 116, 116);
+}
+.createusercheckbox{
+    margin-top: 10px;
+    border: 1px solid #ccc;
+
+}
+.userscardBox{
+    background-color: rgb(90, 207, 243);
+}
+.tilecreateuser{
+    background-color: aqua;
+}
+.tilecreateuser2{
+    background-color: rgb(158, 143, 238);
+}
+.tilecreateuser3{
+    background-color: rgb(107, 230, 144);
+}
+.tilecreateuser4{
+    background-color: rgb(245, 200, 104);
+}
+.tilecreateuser5{
+    background-color: rgb(243, 145, 238);
+}
+.tilecreateuser6{
+    background-color: rgb(226, 194, 135);
+}
+.tilecreateuser7{
+    background-color: rgb(96, 136, 243);
+}
+.fileUploader{
+    margin-left: 10px;
 }

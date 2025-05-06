@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="DeliveryService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotation Term="Core.Links">
+                <Collection>
+                    <Record>
+                        <PropertyValue Property="rel" String="author"/>
+                        <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+                    </Record>
+                </Collection>
+            </Annotation>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Users" EntityType="DeliveryService.Users"/>
+                <EntitySet Name="Buildings" EntityType="DeliveryService.Buildings"/>
+                <EntitySet Name="UserBuildingAssignments" EntityType="DeliveryService.UserBuildingAssignments">
+                    <NavigationPropertyBinding Path="user" Target="Users"/>
+                    <NavigationPropertyBinding Path="building" Target="Buildings"/>
+                </EntitySet>
+                <EntitySet Name="Packages" EntityType="DeliveryService.Packages">
+                    <NavigationPropertyBinding Path="fromCountry" Target="Countries"/>
+                    <NavigationPropertyBinding Path="toCountry" Target="Countries"/>
+                    <NavigationPropertyBinding Path="packageType" Target="PackageTypes"/>
+                    <NavigationPropertyBinding Path="status" Target="Statuses"/>
+                    <NavigationPropertyBinding Path="carrier" Target="Carriers"/>
+                </EntitySet>
+                <EntitySet Name="PackageTypes" EntityType="DeliveryService.PackageTypes"/>
+                <EntitySet Name="Statuses" EntityType="DeliveryService.Statuses"/>
+                <EntitySet Name="Carriers" EntityType="DeliveryService.Carriers"/>
+                <EntitySet Name="Countries" EntityType="DeliveryService.Countries"/>
+            </EntityContainer>
+            <EntityType Name="Users">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="firstName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="lastName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="department" Type="Edm.String" MaxLength="150"/>
+                <Property Name="location" Type="Edm.String" MaxLength="100"/>
+                <Property Name="address1" Type="Edm.String" MaxLength="255"/>
+                <Property Name="empID" Type="Edm.String" MaxLength="255"/>
+                <Property Name="city" Type="Edm.String" MaxLength="100"/>
+                <Property Name="state" Type="Edm.String" MaxLength="100"/>
+                <Property Name="zipcode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="country" Type="Edm.String" MaxLength="100"/>
+                <Property Name="emailID" Type="Edm.String" MaxLength="150"/>
+                <Property Name="phone" Type="Edm.String" MaxLength="50"/>
+                <Property Name="role" Type="Edm.String" MaxLength="50"/>
+                <Property Name="language" Type="Edm.String" MaxLength="50"/>
+                <Property Name="status" Type="Edm.String"/>
+                <Property Name="accessType" Type="Edm.String"/>
+                <Property Name="userType" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Buildings">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="UserBuildingAssignments">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="user" Type="DeliveryService.Users">
+                    <ReferentialConstraint Property="user_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="user_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="building" Type="DeliveryService.Buildings">
+                    <ReferentialConstraint Property="building_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="building_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Packages">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="trackingNumber" Type="Edm.String" MaxLength="100"/>
+                <Property Name="carrierTrackingNumber" Type="Edm.String" MaxLength="100"/>
+                <Property Name="totalPieces" Type="Edm.Int32"/>
+                <Property Name="scanDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="fromFirstName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="fromLastName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="fromCompanyName" Type="Edm.String" MaxLength="150"/>
+                <Property Name="fromEmailID" Type="Edm.String" MaxLength="150"/>
+                <Property Name="fromMailStop" Type="Edm.String" MaxLength="100"/>
+                <Property Name="fromAddress1" Type="Edm.String" MaxLength="255"/>
+                <Property Name="fromAddress2" Type="Edm.String" MaxLength="255"/>
+                <Property Name="fromCity" Type="Edm.String" MaxLength="100"/>
+                <Property Name="fromState" Type="Edm.String" MaxLength="100"/>
+                <Property Name="fromZipcode" Type="Edm.String" MaxLength="20"/>
+                <NavigationProperty Name="fromCountry" Type="DeliveryService.Countries">
+                    <ReferentialConstraint Property="fromCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="fromCountry_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="fromPhone" Type="Edm.String" MaxLength="50"/>
+                <Property Name="toFirstName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toLastName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toCompanyName" Type="Edm.String" MaxLength="150"/>
+                <Property Name="toEmailID" Type="Edm.String" MaxLength="150"/>
+                <Property Name="toAliasName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toMailStop" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toAddress1" Type="Edm.String" MaxLength="255"/>
+                <Property Name="toAddress2" Type="Edm.String" MaxLength="255"/>
+                <Property Name="toCity" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toState" Type="Edm.String" MaxLength="100"/>
+                <Property Name="toZipcode" Type="Edm.String" MaxLength="20"/>
+                <NavigationProperty Name="toCountry" Type="DeliveryService.Countries">
+                    <ReferentialConstraint Property="toCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="toCountry_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="toPhone" Type="Edm.String" MaxLength="50"/>
+                <Property Name="refDate" Type="Edm.Date"/>
+                <Property Name="internalRefNumber" Type="Edm.String" MaxLength="100"/>
+                <Property Name="referenceNumber" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="packageType" Type="DeliveryService.PackageTypes">
+                    <ReferentialConstraint Property="packageType_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="packageType_code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="weight" Type="Edm.Decimal" Precision="10" Scale="2"/>
+                <Property Name="value" Type="Edm.Decimal" Precision="12" Scale="2"/>
+                <Property Name="notes" Type="Edm.String" MaxLength="500"/>
+                <NavigationProperty Name="status" Type="DeliveryService.Statuses">
+                    <ReferentialConstraint Property="status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="status_code" Type="Edm.String" MaxLength="20"/>
+                <NavigationProperty Name="carrier" Type="DeliveryService.Carriers">
+                    <ReferentialConstraint Property="carrier_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="carrier_code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="imageUrl" Type="Edm.String" MaxLength="500"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="PackageTypes">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Statuses">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Carriers">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <Annotations Target="DeliveryService.Users/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="DeliveryService.Users/status">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="ACTIVE"/>
+                            <PropertyValue Property="Value" String="ACTIVE"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="INACTIVE"/>
+                            <PropertyValue Property="Value" String="INACTIVE"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DeliveryService.Users/accessType">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="ASSIGNED"/>
+                            <PropertyValue Property="Value" String="ASSIGNED"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="ALL"/>
+                            <PropertyValue Property="Value" String="ALL"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DeliveryService.Users/userType">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="STAFF"/>
+                            <PropertyValue Property="Value" String="STAFF"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="STUDENT"/>
+                            <PropertyValue Property="Value" String="STUDENT"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="LIBRARY"/>
+                            <PropertyValue Property="Value" String="LIBRARY"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="SECURITY"/>
+                            <PropertyValue Property="Value" String="SECURITY"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="VENDOR"/>
+                            <PropertyValue Property="Value" String="VENDOR"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="ADMIN"/>
+                            <PropertyValue Property="Value" String="ADMIN"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="MAILROOM"/>
+                            <PropertyValue Property="Value" String="MAILROOM"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="DRIVER"/>
+                            <PropertyValue Property="Value" String="DRIVER"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="RECEPTION"/>
+                            <PropertyValue Property="Value" String="RECEPTION"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="GUEST"/>
+                            <PropertyValue Property="Value" String="GUEST"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="TECHSUPPORT"/>
+                            <PropertyValue Property="Value" String="TECHSUPPORT"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="DeliveryService.Buildings/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="DeliveryService.UserBuildingAssignments/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="DeliveryService.Packages/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="DeliveryService.EntityContainer/Countries">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

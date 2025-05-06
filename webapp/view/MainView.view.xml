@@ -1,4 +1,7 @@
-<mvc:View xmlns:cards="sap.f.cards" xmlns:unified="sap.ui.unified"
+<mvc:View
+    xmlns:uxap="sap.uxap"
+    xmlns:cards="sap.f.cards"
+    xmlns:unified="sap.ui.unified"
     xmlns:table="sap.ui.table"
     xmlns:core="sap.ui.core"
     xmlns:layout="sap.ui.layout"
@@ -102,41 +105,8 @@
             >
                 <pages>
                     <Page id="page1">
-        <content>
-            <!-- Use a FlexBox layout to arrange the cards -->
-            <FlexBox justifyContent="SpaceAround" alignItems="Center" wrap="Wrap">
-                <!-- First Card -->
-                <f:Card class="document-card">
-                <f:header>
-                <cards:Header title="Aadhar"></cards:Header>
-        </f:header>
-        <f:content>
-            <FlexBox direction="Column" alignItems="Center" justifyContent="Center">
-                
-                <!-- File Uploader -->
-                <unified:FileUploader id="uploader1"
-                                      uploadComplete="onUploadComplete"
-                                      change="onFileChange"
-                                      width="300px"/>
-
-                <!-- Display Uploaded File Name -->
-                <Text id="fileNameText" text="" visible="false"/>
-
-                <!-- Delete Button -->
-                <Button id="deleteButton"
-                        icon="sap-icon://delete"
-                        press="onDeleteFile"
-                        visible="false"
-                        type="Reject"/>
-            </FlexBox>
-        </f:content>
-    </f:Card>
-
-                <!-- Second Card -->
-                
-            </FlexBox>
-        </content>
-        </Page>                   
+                        <Text text="IMAIL" />
+                    </Page>
                     <Page
                         id="ReceiveaPackage_main"
                         visible="true"
@@ -745,7 +715,7 @@
                         </content>
                     </Page>
                     <Page id="UserManagementpage">
-                    <customHeader>
+                        <customHeader>
                             <Toolbar>
                                 <Title
                                     text="User Management"
@@ -753,28 +723,303 @@
                                 />
                                 <ToolbarSpacer />
 
-                                <Button
-                                    icon="sap-icon://refresh"
-                                    type="Critical"
-                                />
+                                <Button icon="sap-icon://refresh" />
                                 <Button
                                     icon="sap-icon://filter"
                                     text="Filter"
-                                    type="Emphasized"
                                     press="onFilterselection"
                                 />
                                 <Button
                                     icon="sap-icon://add"
-                                    type="Emphasized"
                                     press="onCreateUser"
                                 />
-                                <Button icon="sap-icon://excel-attachment"></Button>
                                 <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
+                                    icon="sap-icon://excel-attachment"
+                                    press="onAddExcel"
+                                />
+                                <unified:FileUploader
+                                    id="excelUploader"
+                                    uploadOnChange="true"
+                                    visible="false"
+                                    fileType="xlsx,xls"
+                                    change="onExcelUploadChange"
+                                    maximumFileSize="5"
+                                    mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                                 />
                             </Toolbar>
                         </customHeader>
+                        <HBox
+                            alignItems="Center"
+                            justifyContent="SpaceBetween"
+                            wrap="NoWrap"
+                            class="sapUiSmallMargin"
+                        >
+                            <GenericTile
+                                class="tilecreateuser"
+                                press="onTilePress"
+                                header="Total Users"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="{/Users/$count}"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Good"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser2"
+                                press="onTilePress"
+                                header="Admin"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser3"
+                                press="onTilePress"
+                                header="Standard Users"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser4"
+                                press="onTilePress"
+                                header="Operations Users"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser5"
+                                press="onTilePress"
+                                header="Location Admin"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser6"
+                                press="onTilePress"
+                                header="Test Role"
+                                frameType="TwoByHalf"
+                                width="9rem"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile
+                                class="tilecreateuser7"
+                                press="onTilePress"
+                                header="Test 2 Std Update"
+                                frameType="TwoByHalf"
+                                width="150px"
+                            >
+                                <TileContent>
+                                    <NumericContent
+                                        icon="sap-icon://family-care"
+                                        value="10"
+                                        scale=""
+                                        indicator="None"
+                                        valueColor="Neutral"
+                                    />
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+                        <content>
+                            <table:Table
+                                id="userstable"
+                                class="formtable"
+                                width="100%"
+                                columnHeaderVisible="true"
+                                rows="{/Users}"
+                                selectionMode="None"
+                                alternateRowColors="true"
+                            >
+                                <table:extension>
+                                    <OverflowToolbar style="Clear">
+                                        <Title text="Products" />
+
+                                        <ToolbarSpacer />
+                                        <SearchField
+                                            placeholder="Filter"
+                                            value="{ui>/globalFilter}"
+                                            search="filterGlobally"
+                                            width="15rem"
+                                        />
+                                        <Button
+                                            icon="sap-icon://decline"
+                                            tooltip="Clear all filters"
+                                            press="clearAllFilters"
+                                        />
+                                        <Button
+                                            icon="sap-icon://action-settings"
+                                            press="onOpenColumnftlter"
+                                        />
+                                    </OverflowToolbar>
+                                </table:extension>
+                                <table:columns>
+                                    <table:Column width="7rem">
+                                        <Label text="First Name" />
+                                        <table:template>
+                                            <Text text="{firstName}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Last Name" />
+                                        <table:template>
+                                            <Text text="{lastName}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column
+                                        filterProperty="Ref"
+                                        width="8rem"
+                                    >
+                                        <Label text="Role" />
+                                        <table:template>
+                                            <Text text="{role}" />
+                                        </table:template>
+                                    </table:Column>
+
+                                    <table:Column width="8rem">
+                                        <Label text="Department" />
+                                        <table:template>
+                                            <Text text="{department}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="UserType" />
+                                        <table:template>
+                                            <Text text="{userType}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="9rem">
+                                        <Label text="Location" />
+                                        <table:template>
+                                            <Text text="{location}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="9rem">
+                                        <Label text="Address1" />
+                                        <table:template>
+                                            <Text text="{address1}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Phone" />
+                                        <table:template>
+                                            <Text text="{phone}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
+                                        <Label text="Email" />
+                                        <table:template>
+                                            <Text text="{emailID}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
+                                        <Label text="City" />
+                                        <table:template>
+                                            <Text text="{city}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="7rem">
+                                        <Label text="State" />
+                                        <table:template>
+                                            <Text text="{state}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Country" />
+                                        <table:template>
+                                            <Text text="{country}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Zipcode" />
+                                        <table:template>
+                                            <Text text="{zipcode}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Language" />
+                                        <table:template>
+                                            <Text text="{language}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="8rem">
+                                        <Label text="Status" />
+                                        <table:template>
+                                            <Text text="{status}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="4rem">
+                                        <Label text="Action" />
+                                        <table:template>
+                                            <HBox justifyContent="SpaceBetween">
+                                                <core:Icon
+                                                    src="sap-icon://edit"
+                                                    press="onEdituserRow"
+                                                />
+                                                <core:Icon
+                                                    src="sap-icon://sys-minus"
+                                                    color="red"
+                                                    press="onDeleteuserRow"
+                                                />
+                                            </HBox>
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>
+                        </content>
                     </Page>
                 </pages>
             </NavContainer>
