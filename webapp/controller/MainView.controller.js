@@ -8,6 +8,7 @@ sap.ui.define([
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
         onInit() {
+            this._aButton = "";
             this._excelData = [];
             if (typeof XLSX === 'undefined') {
                 var sScriptUrl = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js";
@@ -255,8 +256,8 @@ sap.ui.define([
 
         },
         onOpenColumnftlter: function (oEvent) {
-            let aButton = oEvent.mParameters.id;
-            if (aButton === '__button9') {
+            this._aButton = oEvent.mParameters.id;
+            if (this._aButton === '__button9') {
                 let aTablecolumns = [
                     { title: "Image" },
                     { title: "Status" },
@@ -302,7 +303,23 @@ sap.ui.define([
                 this.tablePopOver = sap.ui.xmlfragment("com.db.imayl.imayl.view.tableSettingPopoverRP", this);
                 this.getView().addDependent(this.tablePopOver);
             }
+            let oList = sap.ui.getCore().byId("CHKList");
+            sap.ui.getCore().byId("CHK").setSelected(true);
+
+            if (oList) {
+                // Clear existing selections (optional)
+                oList.removeSelections();
+
+                // Select all list items
+                var aItems = oList.getItems();
+                aItems.forEach(function (oItem) {
+                    oList.setSelectedItem(oItem, true);
+                });
+            }
             this.tablePopOver.openBy(oEvent.getSource());
+        },
+        onSelectionChange: function () {
+            sap.ui.getCore().byId("CHK").setSelected(false);
         },
         onSelectAllColumns: function (oEvent) {
             let aselected = oEvent.getParameter("selected");
@@ -313,9 +330,8 @@ sap.ui.define([
             });
         },
         onApplyColumnChanges: function (oEvent) {
-            let aButton = oEvent.mParameters.id;git
             let oTable;
-            if (aButton === '__button9') {
+            if (this._aButton === '__button9') {
                 oTable = this.byId("formtable");
             }
             else {
@@ -481,7 +497,8 @@ sap.ui.define([
             oBindList.filter(aFilter).requestContexts().then(function (aContexts) {
                 aContexts[0].delete();
             });
-            this.getView().byId("userstable").getBinding("rows").refresh();
+            this.getView().getModel().refresh();
+            //this.getView().byId("userstable").getBinding("rows").refresh();
         },
         onAddExcel: function () {
             if (!this.Exceldialog) {
@@ -560,7 +577,9 @@ sap.ui.define([
             }
             // Clear the stored file
             this._excelData = null;
-            this.getView().byId("userstable").getBinding("rows").refresh();
+            this.getView().getModel().refresh();
+
+            //this.getView().byId("userstable").getBinding("rows").refresh();
 
         }
 

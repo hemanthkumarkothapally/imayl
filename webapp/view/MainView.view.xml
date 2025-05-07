@@ -883,18 +883,13 @@
                                 rows="{/Users}"
                                 selectionMode="None"
                                 alternateRowColors="true"
+                                enableCellFilter="true"
                             >
                                 <table:extension>
                                     <OverflowToolbar style="Clear">
                                         <Title text="Products" />
 
                                         <ToolbarSpacer />
-                                        <SearchField
-                                            placeholder="Filter"
-                                            value="{ui>/globalFilter}"
-                                            search="filterGlobally"
-                                            width="15rem"
-                                        />
                                         <Button
                                             icon="sap-icon://decline"
                                             tooltip="Clear all filters"
@@ -907,20 +902,22 @@
                                     </OverflowToolbar>
                                 </table:extension>
                                 <table:columns>
-                                    <table:Column width="7rem">
+                                    <table:Column filterProperty="FirstName" 
+                                    defaultFilterOperator="StartsWith"
+                                    width="7rem">
                                         <Label text="First Name" />
                                         <table:template>
                                             <Text text="{firstName}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="8rem">
+                                    <table:Column filterProperty="lastName" width="8rem">
                                         <Label text="Last Name" />
                                         <table:template>
                                             <Text text="{lastName}" />
                                         </table:template>
                                     </table:Column>
                                     <table:Column
-                                        filterProperty="Ref"
+                                        filterProperty="role"
                                         width="8rem"
                                     >
                                         <Label text="Role" />
@@ -929,19 +926,19 @@
                                         </table:template>
                                     </table:Column>
 
-                                    <table:Column width="8rem">
+                                    <table:Column filterProperty="department" width="8rem">
                                         <Label text="Department" />
                                         <table:template>
                                             <Text text="{department}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="8rem">
+                                    <table:Column filterProperty="userType" width="8rem">
                                         <Label text="UserType" />
                                         <table:template>
                                             <Text text="{userType}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="9rem">
+                                    <table:Column filterProperty="location" width="9rem">
                                         <Label text="Location" />
                                         <table:template>
                                             <Text text="{location}" />
@@ -965,19 +962,19 @@
                                             <Text text="{emailID}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="7rem">
+                                    <table:Column filterProperty="city" width="7rem">
                                         <Label text="City" />
                                         <table:template>
                                             <Text text="{city}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="7rem">
+                                    <table:Column filterProperty="state" width="7rem">
                                         <Label text="State" />
                                         <table:template>
                                             <Text text="{state}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="8rem">
+                                    <table:Column filterProperty="country" width="8rem">
                                         <Label text="Country" />
                                         <table:template>
                                             <Text text="{country}" />
@@ -989,7 +986,7 @@
                                             <Text text="{zipcode}" />
                                         </table:template>
                                     </table:Column>
-                                    <table:Column width="8rem">
+                                    <table:Column filterProperty="language" width="8rem">
                                         <Label text="Language" />
                                         <table:template>
                                             <Text text="{language}" />
