@@ -72,6 +72,10 @@ sap.ui.define([
                 CreateUser:
                 {
                     notifyme: true,
+                    Received: true,
+                    AllStatuses: true,
+                    Exception: true,
+                    Delivered: true,
                     notifyothers: false,
                     SMS: true
                 }
@@ -85,13 +89,20 @@ sap.ui.define([
             console.log(apagelogo);
             if (bLarge || apagelogo == logolarge) {
                 this.getView().byId("logoId").setSrc(logosmall);
-                oToggleButton.setTooltip('Large Size Navigation');
+                oToggleButton.setTooltip('small Size Navigation');
             } else {
-                oToggleButton.setTooltip('Small Size Navigation');
+                oToggleButton.setTooltip('large Size Navigation');
                 this.getView().byId("logoId").setSrc(logolarge);
             }
         },
         onMenuButtonPress: function () {
+            var oSideNav = this.byId("sidecontent");
+
+            if (oSideNav.hasStyleClass("mySmallSideNav")) {
+                oSideNav.removeStyleClass("mySmallSideNav");
+            } else {
+                oSideNav.addStyleClass("mySmallSideNav");
+            }
             let oToolPage = this.byId("mainpage");
             let bSideExpanded = oToolPage.getSideExpanded();
 
@@ -104,16 +115,66 @@ sap.ui.define([
             let oNavContainer = this.byId("maincontainer");
             switch (oItem) {
                 case "1":
-                    oNavContainer.to(this.byId("page1"));
+                    oNavContainer.to(this.byId("AllPackagespage"));
                     break;
                 case "2":
                     oNavContainer.to(this.byId("ReceiveaPackage_main"));
+                    this._applySearchFilter("formtable");
                     break;
-                case "4":
+                case "3":
+                    oNavContainer.to(this.byId("MyPackagespage"));
+                    this._applySearchFilter("formtable");
+                    break;
+                case "4a":
+                    oNavContainer.to(this.byId("SLACompliancepage"));
+                    break;
+                case "4b":
+                    oNavContainer.to(this.byId("PendingDeliverypage"));
+                    break;
+                case "4c":
+                    oNavContainer.to(this.byId("ResearchedPackagespage"));
+                    break;
+                case "4d":
+                    oNavContainer.to(this.byId("UserProductivitypage"));
+                    break;
+
+                case "5a":
+                    oNavContainer.to(this.byId("Carriersepage"));
+                    break;
+                case "5b":
+                    oNavContainer.to(this.byId("PackageTypespage"));
+                    break;
+                case "5c":
+                    oNavContainer.to(this.byId("PackageStatusespage"));
+                    break;
+                case "5d":
+                    oNavContainer.to(this.byId("Locationspage"));
+                    break;
+                case "5e":
                     oNavContainer.to(this.byId("UserManagementpage"));
+                    this._applySearchFilter("userstable");
                     break;
+                case "5f":
+                    oNavContainer.to(this.byId("Calendarpage"));
+                    break;
+                case "5g":
+                    oNavContainer.to(this.byId("DeliveryLocationspage"));
+                    break;
+                case "5h":
+                    oNavContainer.to(this.byId("Rolespage"));
+                    break;
+
+                case "6":
+                    oNavContainer.to(this.byId("UserLogpage"));
+                    this._applySearchFilter("userstable");
+                    break;
+                case "7":
+                    oNavContainer.to(this.byId("EmailTemplatepage"));
+                    this._applySearchFilter("userstable");
+                    break;
+
                 default:
-                    oNavContainer.to(this.byId("page1"));
+                    oNavContainer.to(this.byId("AllPackagespage"));
                     break;
             }
         },
@@ -256,8 +317,8 @@ sap.ui.define([
 
         },
         onOpenColumnftlter: function (oEvent) {
-            this._aButton = oEvent.mParameters.id;
-            if (this._aButton === '__button9') {
+            this._aButton = oEvent.getSource().getParent().getParent().getId();
+            if (this._aButton === 'application-comdbimaylimayl-display-component---MainView--formtable') {
                 let aTablecolumns = [
                     { title: "Image" },
                     { title: "Status" },
@@ -303,19 +364,19 @@ sap.ui.define([
                 this.tablePopOver = sap.ui.xmlfragment("com.db.imayl.imayl.view.tableSettingPopoverRP", this);
                 this.getView().addDependent(this.tablePopOver);
             }
-            let oList = sap.ui.getCore().byId("CHKList");
-            sap.ui.getCore().byId("CHK").setSelected(true);
+            // let oList = sap.ui.getCore().byId("CHKList");
+            // sap.ui.getCore().byId("CHK").setSelected(true);
 
-            if (oList) {
-                // Clear existing selections (optional)
-                oList.removeSelections();
+            // if (oList) {
+            //     // Clear existing selections (optional)
+            //     oList.removeSelections();
 
-                // Select all list items
-                var aItems = oList.getItems();
-                aItems.forEach(function (oItem) {
-                    oList.setSelectedItem(oItem, true);
-                });
-            }
+            //     // Select all list items
+            //     var aItems = oList.getItems();
+            //     aItems.forEach(function (oItem) {
+            //         oList.setSelectedItem(oItem, true);
+            //     });
+            // }
             this.tablePopOver.openBy(oEvent.getSource());
         },
         onSelectionChange: function () {
@@ -331,7 +392,7 @@ sap.ui.define([
         },
         onApplyColumnChanges: function (oEvent) {
             let oTable;
-            if (this._aButton === '__button9') {
+            if (this._aButton === 'application-comdbimaylimayl-display-component---MainView--formtable') {
                 oTable = this.byId("formtable");
             }
             else {
@@ -392,6 +453,15 @@ sap.ui.define([
             var oBinding = oList.getBinding("items");
             oBinding.filter(aFilters);
         },
+        _applySearchFilter: function (tableid) {
+            let oTable = this.byId(tableid);
+            let aColumns = oTable.getColumns();
+
+            aColumns.forEach(function (oColumn) {
+                oColumn.setVisible(true); // Show all columns
+            });
+
+        },
         onCreateUser: function () {
             if (!this.CreateUserdialog) {
                 this.CreateUserdialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateAUser", this);
@@ -446,7 +516,7 @@ sap.ui.define([
             var aList = oModel.getProperty("/aliasList");
 
             // Push new alias entry
-            aList.push({ aliasName: "New Alias" });
+            aList.push({ aliasName: "" });
             oModel.setProperty("/aliasList", aList);
 
             sap.m.MessageToast.show("New alias row added.");
@@ -581,6 +651,27 @@ sap.ui.define([
 
             //this.getView().byId("userstable").getBinding("rows").refresh();
 
+        },
+        onAddEmail: function () {
+            if (!this.CreateEmailDialog) {
+                this.CreateEmailDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateEmail", this);
+                this.getView().addDependent(this.CreateEmailDialog);
+            }
+            this.CreateEmailDialog.open();
+        },
+        onAddCarrier: function () {
+            if (!this.CreateCarrierDialog) {
+                this.CreateCarrierDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateCarrier", this);
+                this.getView().addDependent(this.CreateCarrierDialog);
+            }
+            this.CreateCarrierDialog.open();
+        },
+        onAddPackageType: function () {
+            if (!this.CreatePackageTypeDialog) {
+                this.CreatePackageTypeDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreatePackageType", this);
+                this.getView().addDependent(this.CreatePackageTypeDialog);
+            }
+            this.CreatePackageTypeDialog.open();
         }
 
 

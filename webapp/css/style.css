@@ -36,25 +36,123 @@
 }
 .tilecreateuser{
     background-color: aqua;
+    border-radius: 0px;
+    height: 75px !important;
+
 }
 .tilecreateuser2{
     background-color: rgb(158, 143, 238);
+    border-radius: 0px;
+    height: 75px !important;
+
 }
 .tilecreateuser3{
     background-color: rgb(107, 230, 144);
+    border-radius: 0px;
+    height: 75px !important;
+
 }
 .tilecreateuser4{
     background-color: rgb(245, 200, 104);
+    border-radius: 0px;
+    height: 75px !important;
+
 }
 .tilecreateuser5{
     background-color: rgb(243, 145, 238);
+    border-radius: 0px;
+    height: 75px !important;
+
 }
 .tilecreateuser6{
     background-color: rgb(226, 194, 135);
+    border-radius: 0px;
+    height: 75px !important;
+
+
 }
 .tilecreateuser7{
     background-color: rgb(96, 136, 243);
+    border-radius: 0px;
+    height: 75px !important;
+
+
 }
 .fileUploader{
     margin-left: 10px;
+}
+.allpackages{
+    background-color: rgb(15, 218, 25);
+    border-radius: 0px;
+    height: 75px !important;
+
+}
+.MissingData{
+    background-color: rgb(253, 103, 103);
+    border-radius: 0px;
+    height: 75px !important;
+
+}
+.allpackagesReceived{
+    color: white !important;
+    background-color: rgb(245, 216, 52);
+    border-radius: 0px;
+    height: 75px !important;
+}
+.allpackagesTender{
+    background-color: rgb(128, 34, 250);
+    border-radius: 0px;
+    height: 75px !important;
+}
+.allpackagesResearch{
+    
+    background-color: rgb(253, 103, 103);
+    border-radius: 0px;
+    height: 75px !important;
+}
+.allpackagesDelivered{
+    background-color: rgb(131, 202, 16);
+    border-radius: 0px;
+    height: 75px !important;
+}
+.allpackagesForward{
+    background-color: rgb(224, 74, 74);
+    border-radius: 0px;
+    height: 75px !important;
+}
+
+/* General Tile Container */
+.tiles-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+/* Individual Tiles */
+.tile-carrier {
+    background-color: #00a2ff !important; /* Blue */
+    color: white !important;
+}
+
+.tile-active {
+    background-color: #00c853 !important; /* Green */
+    color: white !important;
+}
+
+.tile-inactive {
+    background-color: #d92550 !important; /* Red */
+    color: white !important;
+}
+
+/* Numeric Content Styling */
+.sapMGTValue {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sapMGTHeader {
+    font-size: 16px;
+}
+.abcd{
+    height: 1rem !important;
 }
