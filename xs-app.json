@@ -1,11 +1,11 @@
 {
   "welcomeFile": "/index.html",
-  "authenticationMethod": "route",
+  "authenticationMethod": "none",
   "routes": [
     {
       "source": "^/odata/(.*)$",
       "target": "/odata/$1",
-      "destination": "imail-dest",
+      "destination": "imayl-cap-dest",
       "authenticationType": "none",
       "csrfProtection": false
     },

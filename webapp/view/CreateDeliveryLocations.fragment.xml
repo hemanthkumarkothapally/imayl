@@ -5,8 +5,8 @@
     xmlns:form="sap.ui.layout.form"
 >
     <Dialog
-        id="CreateCarrierDialog"
-        title="New Email Template"
+        id="CreateDeliveryLocationsDialog"
+        title="Delivery Location"
         
         contentHeight="auto"
         class="CreateUserDialog"
@@ -14,7 +14,7 @@
         <customHeader>
             <Bar>
                 <contentLeft>
-                    <Title text="Create Carrier and Service levels" />
+                    <Title text="Delivery Location" />
                 </contentLeft>
                 <contentRight>
                     <Button
@@ -30,18 +30,19 @@
         
             <form:SimpleForm >
             <form:content>
-                        <Label text="Name" required="true"/>
+                        <Label text="Location Code" required="true"/>
                         <Input value="{Name}" />
-                        <Label text="Description" required="true"/>
+                        <Label text="Location Name" required="true"/>
                         <Input value="{TemplateDescription}" />
             
-                        <Label text="Status Name"/>
-                        <Select selectedKey="Active">
+                        <Label text="Location Status "/>
+                        <Select selectedKey="{StatusName}">
+                            <core:Item key="1" text="Please Choose:"/>
                             <core:Item key="Active" text="Active" />
                             <core:Item key="InActive" text="InActive" />
                            
                         </Select>
-                        <Label text="Shipment Tracking URL"></Label>
+                        <Label text="Location Remarks"></Label>
                         <Input value="" ></Input>
                         
             </form:content>

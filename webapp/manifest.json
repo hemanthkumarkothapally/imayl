@@ -30,7 +30,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/delivery/",
+        "uri": "/odata/v4/imailservice/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -62,7 +62,8 @@
       "minUI5Version": "1.134.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.unified": {}
       }
     },
     "contentDensities": {

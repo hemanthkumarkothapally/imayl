@@ -2,8 +2,11 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
-], (Controller, MessageToast, Filter, FilterOperator) => {
+    "sap/ui/model/FilterOperator",
+    'sap/ui/unified/ColorPickerPopover',
+    "sap/ui/unified/ColorPickerDisplayMode",
+    "sap/ui/unified/ColorPickerMode"
+], (Controller, MessageToast, Filter, FilterOperator, ColorPickerPopover, ColorPickerDisplayMode, ColorPickerMode) => {
     "use strict";
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
@@ -672,7 +675,90 @@ sap.ui.define([
                 this.getView().addDependent(this.CreatePackageTypeDialog);
             }
             this.CreatePackageTypeDialog.open();
+        },
+        onAddLocations: function () {
+            if (!this.CreateLocationsDialog) {
+                this.CreateLocationsDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateLocations", this);
+                this.getView().addDependent(this.CreateLocationsDialog);
+            }
+            this.CreateLocationsDialog.open();
+        },
+        onAddRoles: function () {
+            if (!this.CreateRolesDialog) {
+                this.CreateRolesDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateRoles", this);
+                this.getView().addDependent(this.CreateRolesDialog);
+            }
+            this.CreateRolesDialog.open();
+        },
+        onAddDeliveryLocations: function () {
+            if (!this.CreateDeliveryLocationsDialog) {
+                this.CreateDeliveryLocationsDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateDeliveryLocations", this);
+                this.getView().addDependent(this.CreateDeliveryLocationsDialog);
+            }
+            this.CreateDeliveryLocationsDialog.open();
+        },
+        onAddPackageStatuses: function () {
+            if (!this.CreatePackageStatusesDialog) {
+                this.CreatePackageStatusesDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreatePackageStatuses", this);
+                this.getView().addDependent(this.CreatePackageStatusesDialog);
+            }
+            this.CreatePackageStatusesDialog.open();
+        },
+        openLiveChangeSample: function (oEvent) {
+            this.inputId = oEvent.getSource().getId();
+            if (!this.oColorPickerLiveChangePopover) {
+                this.oColorPickerLiveChangePopover = new ColorPickerPopover("oColorPickerLiveChangePopover", {
+                    colorString: "orange",
+                    displayMode: ColorPickerDisplayMode.Simplified,
+                    mode: ColorPickerMode.HSL,
+                    change: this.handleChange.bind(this),
+                    liveChange: this.handleLiveChange.bind(this)
+                });
+            }
+            this.oColorPickerLiveChangePopover.openBy(oEvent.getSource());
+        },
+        handleChange: function (oEvent) {
+            var oView = this.getView(),
+                oInput = oView.byId(this.inputId);
+
+            oInput.setValue(oEvent.getParameter("colorString"));
+            oInput.setValueState(ValueState.None);
+            this.inputId = "";
+            MessageToast.show("Chosen color string: " + oEvent.getParameter("colorString"));
+        },
+        handleLiveChange: function (oEvent) {
+            var oView = this.getView();
+        },
+        onCreateEmailClosePress: function (oEvent) {
+            let aDialogBoxId = oEvent.getSource().oParent.oParent.sId;
+
+            switch (aDialogBoxId) {
+                case "CreateCarrierDialog":
+                    this.CreateCarrierDialog.close();
+                    break;
+                case "CreatePackageTypeDialog":
+                    this.CreatePackageTypeDialog.close();
+                    break;
+                case "CreatePackageStatusesDialog":
+                    this.CreatePackageStatusesDialog.close();
+                    break;
+                case "CreateLocationsDialog":
+                    this.CreateLocationsDialog.close();
+                    break;
+                case "CreateDeliveryLocationsDialog":
+                    this.CreateDeliveryLocationsDialog.close();
+                    break;
+                case "CreateRolesDialog":
+                    this.CreateRolesDialog.close();
+                    break;
+
+                case "CreateEmailDialog":
+                    this.CreateEmailDialog.close();
+                    break;
+
+            }
         }
+
 
 
     });

@@ -28,18 +28,18 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: false
         backend:
-          - url: https://ccc9e828trial-dev-nexpro-srv.cfapps.us10-001.hana.ondemand.com/
+          - url: https://4d476018trial-dev-imayl-cap-srv.cfapps.us10-001.hana.ondemand.com/
             authenticationType: NoAuthentication
-            destination: imail-dest
+            destination: imayl-cap-dest
             path: /odata
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
         mountPath: /
         services:
-          - urlPath: /odata/v4/delivery
+          - urlPath: /odata/v4/imailservice
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true

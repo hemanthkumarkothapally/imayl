@@ -1,0 +1,130 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog
+        id="CreatePackageStatusesDialog"
+        title="Package Statuses"
+        contentWidth="70%"
+        contentHeight="auto"
+        class="CreateUserDialog"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Title text="Create a Status" />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        icon="sap-icon://decline"
+                        type="Transparent"
+                        press=".onCreateEmailClosePress"
+                    />
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <form:SimpleForm layout="ResponsiveGridLayout">
+                <form:content>
+                    <Label
+                        text="Code"
+                        required="true"
+                    />
+                    <Input
+                        value="{Name}"
+                        width="10rem"
+                    />
+                    <Label
+                        text="Description"
+                        required="true"
+                    />
+                    <Input value="{TemplateDescription}" />
+                    <Label text="Templates" />
+                    <Select selectedKey="{StatusName}">
+                        <core:Item
+                            key="1"
+                            text="Please Choose:"
+                        />
+                        <core:Item
+                            key="Active"
+                            text="Active"
+                        />
+                        <core:Item
+                            key="InActive"
+                            text="InActive"
+                        />
+                    </Select>
+                    <Label text="Type" />
+                    <Select selectedKey="{StatusName}">
+                        <core:Item
+                            key="1"
+                            text="Please Choose:"
+                        />
+                        <core:Item
+                            key="Active"
+                            text="Active"
+                        />
+                        <core:Item
+                            key="InActive"
+                            text="InActive"
+                        />
+                    </Select>
+                    <Label
+                        text="Color Picker"
+                        required="true"
+                    />
+                    <Input
+                        id="colorLC"
+                        type="Text"
+                        width="200px"
+                        placeholder="Enter Color ..."
+                        showValueHelp="true"
+                        valueHelpRequest="openLiveChangeSample"
+                        change="handleInputChange"
+                    />
+                    <Label
+                        text="Order Flow"
+                        required="true"
+                    />
+                    <Input value="{TemplateDescription}" />
+
+                    <Label text="Status" />
+                    <Select selectedKey="{Status}">
+                        <core:Item
+                            key="1"
+                            text="Please Choose:"
+                        />
+                        <core:Item
+                            key="Active"
+                            text="Active"
+                        />
+                        <core:Item
+                            key="InActive"
+                            text="InActive"
+                        />
+                    </Select>
+                    <Label text="Shipment Tracking URL" />
+                    <Input value="" />
+                </form:content>
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Cancel"
+                press=".onCreateUserFormClosePress"
+            />
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="Save"
+                type="Emphasized"
+                icon="sap-icon://save"
+                press=".onSaveNewUser"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

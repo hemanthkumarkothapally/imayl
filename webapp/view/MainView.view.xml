@@ -15,19 +15,20 @@
     xmlns:rowmodes="sap.ui.table.rowmodes"
 >
     <tnt:ToolPage id="mainpage">
-        <tnt:header>
-            <tnt:ToolHeader>
-                <Image
-                    id="logoId"
-                    src="https://cloud.imayl.com/Com/ProcessWeaver/IMAYL/Common/dist/img/logo.png"
-                />
-
+        <tnt:header >
+            <tnt:ToolHeader class="headerclass" height="40px" >
                 <Button
                     id="sideNavigationToggleButton"
                     icon="sap-icon://menu2"
                     type="Transparent"
                     press=".onMenuButtonPress"
                 />
+                <Image
+                    id="logoId"
+                    src="https://cloud.imayl.com/Com/ProcessWeaver/IMAYL/Common/dist/img/logo.png"
+                />
+
+                
             </tnt:ToolHeader>
         </tnt:header>
         <tnt:sideContent>
@@ -200,9 +201,10 @@
                                 /> -->
                             </Toolbar>
                         </customHeader>
-                        <Panel>
-                            <Bar>
-                                <contentLeft>
+                        <Panel >
+                            <!-- <Bar>
+                                <contentLeft> -->
+                                <HBox justifyContent="SpaceBetween">
                                     <Title
                                         text="Total Packages: 0 in Last {
                                 parts: [
@@ -212,8 +214,8 @@
                                         formatter: '.calculateDays'
                                 } Days"
                                     />
-                                </contentLeft>
-                                <contentRight>
+                                <!-- </contentLeft>
+                                <contentRight> -->
                                     <Title
                                         text="{
                                 parts: [
@@ -223,21 +225,20 @@
                                         formatter: '.formatDateRange'
                                 }"
                                     />
+                                    </HBox>
                                     <!-- <Title text="{requestpackageModel>/popoverfromdate} - {requestpackageModel>/popovertoDate}" /> -->
-                                </contentRight>
-                            </Bar>
+                                <!-- </contentRight>
+                            </Bar> -->
                             <HBox
-                                alignContent="SpaceBetween"
-                                alignItems="Stretch"
                                 width="100%"
-                                justifyContent="SpaceBetween"
+                                justifyContent="SpaceAround"
                             >
                                 <GenericTile
                                     class="allpackagesReceived"
                                     header="Received"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="13rem"
+                                    width="12rem"
                                 >
                                     <TileContent>
                                         <NumericContent
@@ -251,7 +252,7 @@
                                     header="Tender"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="13rem"
+                                    width="12rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -268,7 +269,7 @@
                                     header="Research"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="13rem"
+                                    width="12rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -285,7 +286,7 @@
                                     header="Delivered"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="13rem"
+                                    width="12rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -302,7 +303,7 @@
                                     header="Forward"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="13rem"
+                                    width="12rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -961,17 +962,15 @@
                                 </contentRight>
                             </Bar>
                             <HBox
-                                alignContent="SpaceBetween"
-                                alignItems="Stretch"
                                 width="100%"
-                                justifyContent="SpaceBetween"
+                                justifyContent="SpaceAround"
                             >
                                 <GenericTile
                                     class="allpackages"
                                     header="All Other Packages"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="33rem"
+                                    width="32rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -988,7 +987,7 @@
                                     header="Missing Data Packages"
                                     frameType="TwoByHalf"
                                     press="press"
-                                    width="33rem"
+                                    width="32rem"
                                 >
                                     <TileContent
                                         unit="Unit"
@@ -1068,13 +1067,11 @@
                                 />
                             </Toolbar>
                         </customHeader>
+                        
                         <content>
                             <VBox width="100%">
-                                <Panel>
-                                    <HBox
-                                        justifyContent="SpaceBetween"
-                                        height="5rem"
-                                    >
+                                <Panel class="sapUiSmallMargin" width="97%">
+                                    <layout:Grid >
                                         <VBox>
                                             <Label text="Date" />
                                             <DatePicker
@@ -1115,10 +1112,12 @@
                                                 type="Number"
                                             />
                                         </VBox>
-                                    </HBox>
-
+                                    </layout:Grid>
+                                </Panel>
                                     <layout:Grid defaultSpan="L6 M6 S12">
                                         <Panel
+                                            expanded="true"
+                                            expandable="true"
                                             headerText="Ship From"
                                             class="formpanel"
                                         >
@@ -1192,7 +1191,7 @@
                                                 </form:content>
                                             </form:SimpleForm>
                                         </Panel>
-                                        <Panel class="formpanel">
+                                        <Panel expanded="true" expandable="true" class="formpanel">
                                             <headerToolbar>
                                                 <OverflowToolbar>
                                                     <Title text="Ship To" />
@@ -1503,12 +1502,11 @@
                                             type="Emphasized"
                                         />
                                     </HBox>
-                                </Panel>
+                                
                             </VBox>
                         </content>
                     </Page>
 
-                    
                     <Page id="SLACompliancepage">
                         <customHeader>
                             <Toolbar>
@@ -1527,18 +1525,11 @@
                                 <Button
                                     icon="sap-icon://refresh"
                                     tooltip="Refresh"
+                                    type="Emphasized"
                                 />
-                                <Button
-                                    icon="sap-icon://excel-attachment"
-                                    tooltip="Download Excel"
-                                />
-                                <!-- <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
-                                /> -->
                             </Toolbar>
                         </customHeader>
-                        <layout:Grid>
+                        <layout:Grid defaultSpan="XL6 S12">
                             <VBox
                                 justifyContent="Center"
                                 height="4rem"
@@ -1553,13 +1544,6 @@
                                 <Label text="To Date" />
                                 <DatePicker />
                             </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="User Name" />
-                                <SearchField />
-                            </VBox>
                         </layout:Grid>
                         <table:Table selectionMode="None">
                             <!-- <table:extension><OverflowToolbar >
@@ -1571,7 +1555,7 @@
                         </OverflowToolbar></table:extension> -->
                             <table:columns>
                                 <table:Column filterProperty="color">
-                                    <Label text="User Name" />
+                                    <Label text="Color Code" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1580,7 +1564,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Module Name" />
+                                    <Label text="Ext Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1589,7 +1573,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Operation Type" />
+                                    <Label text="Int Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1598,7 +1582,17 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="IP Address" />
+                                    <Label text="Status" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+
+                                <table:Column filterProperty="color">
+                                    <Label text="Last Handled By" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1607,7 +1601,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Date" />
+                                    <Label text="Received Date" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1616,7 +1610,16 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Time" />
+                                    <Label text="Updated Date" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column filterProperty="color">
+                                    <Label text="Time Since Received" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1627,7 +1630,7 @@
                             </table:columns>
                         </table:Table>
                     </Page>
-                    
+
                     <Page id="PendingDeliverypage">
                         <customHeader>
                             <Toolbar>
@@ -1646,18 +1649,11 @@
                                 <Button
                                     icon="sap-icon://refresh"
                                     tooltip="Refresh"
+                                    type="Emphasized"
                                 />
-                                <Button
-                                    icon="sap-icon://excel-attachment"
-                                    tooltip="Download Excel"
-                                />
-                                <!-- <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
-                                /> -->
                             </Toolbar>
                         </customHeader>
-                        <layout:Grid>
+                        <layout:Grid defaultSpan="XL6 S12">
                             <VBox
                                 justifyContent="Center"
                                 height="4rem"
@@ -1672,25 +1668,11 @@
                                 <Label text="To Date" />
                                 <DatePicker />
                             </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="User Name" />
-                                <SearchField />
-                            </VBox>
                         </layout:Grid>
                         <table:Table selectionMode="None">
-                            <!-- <table:extension><OverflowToolbar >
-                        <ToolbarSpacer ></ToolbarSpacer>
-                        <Button
-                                                    icon="sap-icon://action-settings"
-                                                    press="onOpenColumnftlter"
-                                                />
-                        </OverflowToolbar></table:extension> -->
                             <table:columns>
                                 <table:Column filterProperty="color">
-                                    <Label text="User Name" />
+                                    <Label text="Color Code" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1699,7 +1681,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Module Name" />
+                                    <Label text="Ext Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1708,7 +1690,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Operation Type" />
+                                    <Label text="Int Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1717,7 +1699,17 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="IP Address" />
+                                    <Label text="Status" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+
+                                <table:Column filterProperty="color">
+                                    <Label text="Last Handled By" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1726,7 +1718,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Date" />
+                                    <Label text="Received Date" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1735,7 +1727,16 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Time" />
+                                    <Label text="Updated Date" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column filterProperty="color">
+                                    <Label text="Time Since Received" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1746,7 +1747,7 @@
                             </table:columns>
                         </table:Table>
                     </Page>
-                    
+
                     <Page id="ResearchedPackagespage">
                         <customHeader>
                             <Toolbar>
@@ -1765,51 +1766,32 @@
                                 <Button
                                     icon="sap-icon://refresh"
                                     tooltip="Refresh"
+                                    type="Emphasized"
                                 />
-                                <Button
-                                    icon="sap-icon://excel-attachment"
-                                    tooltip="Download Excel"
-                                />
-                                <!-- <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
-                                /> -->
                             </Toolbar>
                         </customHeader>
-                        <layout:Grid>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="From Date" />
-                                <DatePicker />
-                            </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="To Date" />
-                                <DatePicker />
-                            </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="User Name" />
-                                <SearchField />
-                            </VBox>
-                        </layout:Grid>
+                        <Panel>
+                            <layout:Grid defaultSpan="XL6 S12">
+                                <VBox
+                                    justifyContent="Center"
+                                    height="4rem"
+                                >
+                                    <Label text="From Date" />
+                                    <DatePicker />
+                                </VBox>
+                                <VBox
+                                    justifyContent="Center"
+                                    height="4rem"
+                                >
+                                    <Label text="To Date" />
+                                    <DatePicker />
+                                </VBox>
+                            </layout:Grid>
+                        </Panel>
                         <table:Table selectionMode="None">
-                            <!-- <table:extension><OverflowToolbar >
-                        <ToolbarSpacer ></ToolbarSpacer>
-                        <Button
-                                                    icon="sap-icon://action-settings"
-                                                    press="onOpenColumnftlter"
-                                                />
-                        </OverflowToolbar></table:extension> -->
                             <table:columns>
                                 <table:Column filterProperty="color">
-                                    <Label text="User Name" />
+                                    <Label text="Ext Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1818,7 +1800,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Module Name" />
+                                    <Label text="Int Tracking #" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1827,7 +1809,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Operation Type" />
+                                    <Label text="Recipient Name" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1836,7 +1818,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="IP Address" />
+                                    <Label text="Status" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1845,7 +1827,7 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Date" />
+                                    <Label text="Research Start Time" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1854,7 +1836,16 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Time" />
+                                    <Label text="Reason" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column filterProperty="color">
+                                    <Label text="Researched Time" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -1865,7 +1856,7 @@
                             </table:columns>
                         </table:Table>
                     </Page>
-                    
+
                     <Page id="UserProductivitypage">
                         <customHeader>
                             <Toolbar>
@@ -1884,85 +1875,30 @@
                                 <Button
                                     icon="sap-icon://refresh"
                                     tooltip="Refresh"
+                                    type="Emphasized"
                                 />
-                                <Button
-                                    icon="sap-icon://excel-attachment"
-                                    tooltip="Download Excel"
-                                />
-                                <!-- <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
-                                /> -->
                             </Toolbar>
                         </customHeader>
-                        <layout:Grid>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="From Date" />
-                                <DatePicker />
-                            </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="To Date" />
-                                <DatePicker />
-                            </VBox>
-                            <VBox
-                                justifyContent="Center"
-                                height="4rem"
-                            >
-                                <Label text="User Name" />
-                                <SearchField />
-                            </VBox>
-                        </layout:Grid>
+                        <Panel>
+                            <layout:Grid defaultSpan="XL6 S12">
+                                <VBox
+                                    justifyContent="Center"
+                                    height="4rem"
+                                >
+                                    <Label text="From Date" />
+                                    <DatePicker />
+                                </VBox>
+                                <VBox
+                                    justifyContent="Center"
+                                    height="4rem"
+                                >
+                                    <Label text="To Date" />
+                                    <DatePicker />
+                                </VBox>
+                            </layout:Grid>
+                        </Panel>
                         <table:Table selectionMode="None">
-                            <!-- <table:extension><OverflowToolbar >
-                        <ToolbarSpacer ></ToolbarSpacer>
-                        <Button
-                                                    icon="sap-icon://action-settings"
-                                                    press="onOpenColumnftlter"
-                                                />
-                        </OverflowToolbar></table:extension> -->
                             <table:columns>
-                                <table:Column filterProperty="color">
-                                    <Label text="User Name" />
-                                    <table:template>
-                                        <Text
-                                            text="color"
-                                            wrapping="false"
-                                        />
-                                    </table:template>
-                                </table:Column>
-                                <table:Column filterProperty="color">
-                                    <Label text="Module Name" />
-                                    <table:template>
-                                        <Text
-                                            text="color"
-                                            wrapping="false"
-                                        />
-                                    </table:template>
-                                </table:Column>
-                                <table:Column filterProperty="color">
-                                    <Label text="Operation Type" />
-                                    <table:template>
-                                        <Text
-                                            text="color"
-                                            wrapping="false"
-                                        />
-                                    </table:template>
-                                </table:Column>
-                                <table:Column filterProperty="color">
-                                    <Label text="IP Address" />
-                                    <table:template>
-                                        <Text
-                                            text="color"
-                                            wrapping="false"
-                                        />
-                                    </table:template>
-                                </table:Column>
                                 <table:Column filterProperty="color">
                                     <Label text="Date" />
                                     <table:template>
@@ -1973,7 +1909,35 @@
                                     </table:template>
                                 </table:Column>
                                 <table:Column filterProperty="color">
-                                    <Label text="Time" />
+                                    <Label text="User" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+
+                                <table:Column filterProperty="color">
+                                    <Label text="Ext Tracking #" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column filterProperty="color">
+                                    <Label text="Int Tracking #" />
+                                    <table:template>
+                                        <Text
+                                            text="color"
+                                            wrapping="false"
+                                        />
+                                    </table:template>
+                                </table:Column>
+                                <table:Column filterProperty="color">
+                                    <Label text="Status" />
                                     <table:template>
                                         <Text
                                             text="color"
@@ -2013,12 +1977,10 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://shipping-status"
-                                        value="{/Users/$count}"
+                                        value="{/Carriers/$count}"
                                         scale=""
                                         indicator="None"
                                         valueColor="Good"
@@ -2035,7 +1997,7 @@
                                 <TileContent>
                                     <NumericContent
                                         icon="sap-icon://thumb-up"
-                                        value="10"
+                                        value="{/Carriers/$count?$filter=Status eq 'Active'}"
                                         scale=""
                                         indicator="None"
                                         valueColor="Neutral"
@@ -2061,48 +2023,48 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
-                            <table:columns>
-                                <table:Column filterProperty="color">
+                        <table:Table selectionMode="None" rows="{/Carriers}">
+                            <table:columns >
+                                <table:Column filterProperty="Name">
                                     <Label text="Name" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Name}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Description">
                                     <Label text="Description" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Description}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Status">
                                     <Label text="Status" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Status}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="ShipmentTrackingURL">
                                     <Label text="Track URL" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{ShipmentTrackingURL}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column width="4rem">
+                                <table:Column width="6rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceAround">
                                             <core:Icon
                                                 src="sap-icon://sys-add"
                                                 color="blue"
@@ -2148,12 +2110,10 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://shipping-status"
-                                        value="{/Users/$count}"
+                                        value="{/Package_Types/$count}"
                                         scale=""
                                         indicator="None"
                                         valueColor="Good"
@@ -2196,23 +2156,23 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
+                        <table:Table selectionMode="None" rows="{/Package_Types}">
                             <table:columns>
                                 <table:Column filterProperty="color">
                                     <Label text="Code" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Code}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
+
                                 <table:Column filterProperty="color">
                                     <Label text="Name" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Name}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -2221,7 +2181,7 @@
                                     <Label text="Description" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Description}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -2230,7 +2190,7 @@
                                     <Label text="Status" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Status}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -2238,7 +2198,7 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
                                                 src="sap-icon://sys-add"
                                                 color="blue"
@@ -2267,7 +2227,7 @@
                                 <Button
                                     icon="sap-icon://add"
                                     type="Emphasized"
-                                    press="onAddPackageType"
+                                    press="onAddPackageStatuses"
                                 />
                             </Toolbar>
                         </customHeader>
@@ -2284,12 +2244,10 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://sys-enter-2"
-                                        value="{/Users/$count}"
+                                        value="{/Package_Statuses/$count}"
                                         scale=""
                                         indicator="None"
                                         valueColor="Good"
@@ -2332,87 +2290,87 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
+                        <table:Table selectionMode="None" rows="{/Package_Statuses}">
                             <table:columns>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Code">
                                     <Label text="Code" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Code}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
-                                <table:Column filterProperty="color">
+
+                                <table:Column filterProperty="Description">
                                     <Label text="Description" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Description}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Type">
                                     <Label text="Type" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Type}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="ColorPicker">
                                     <Label text="Color Picker" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{ColorPicker}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="OrderFlow">
                                     <Label text="Order Flow" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{OrderFlow}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="PhotoRequired">
                                     <Label text="Photo Required" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{PhotoRequired}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="SignatureRequired">
                                     <Label text="Signature Required" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{SignatureRequired}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="HideTracking">
                                     <Label text="Hide Tracking" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{HideTracking}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
-                                <table:Column filterProperty="color">
+
+                                <table:Column filterProperty="Status">
                                     <Label text="Status" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Status}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -2420,7 +2378,7 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
                                                 src="sap-icon://sys-add"
                                                 color="blue"
@@ -2449,7 +2407,7 @@
                                 <Button
                                     icon="sap-icon://add"
                                     type="Emphasized"
-                                    press="onAddPackageType"
+                                    press="onAddLocations"
                                 />
                             </Toolbar>
                         </customHeader>
@@ -2466,9 +2424,7 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://locate-me"
                                         value="{/Users/$count}"
@@ -2514,96 +2470,96 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
+                        <table:Table selectionMode="None" rows="{/Locations}">
                             <table:columns>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Code">
                                     <Label text="Code" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Code}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
-                                <table:Column filterProperty="color">
+
+                                <table:Column filterProperty="Name">
                                     <Label text="Name" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Name}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Address">
                                     <Label text="Address" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Address}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="City">
                                     <Label text="City" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="City"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="State">
                                     <Label text="State" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{State}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column >
                                     <Label text="Zipcode" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Zipcode}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Country">
                                     <Label text="Country" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Country}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Phone">
                                     <Label text="Phone" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Phone}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column >
                                     <Label text="Remarks" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Remarks}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
-                                <table:Column filterProperty="color">
+
+                                <table:Column filterProperty="Status">
                                     <Label text="Status" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Status}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -2628,7 +2584,6 @@
                             </table:columns>
                         </table:Table>
                     </Page>
-
 
                     <Page id="UserManagementpage">
                         <customHeader>
@@ -2971,23 +2926,19 @@
                                 <ToolbarSpacer />
 
                                 <Button
-                                    icon="sap-icon://search"
-                                    type="Emphasized"
-                                    press="onAddReceiveAPackage"
-                                    tooltip="Search"
-                                />
-                                <Button
                                     icon="sap-icon://refresh"
+                                    type="Emphasized"
                                     tooltip="Refresh"
                                 />
                                 <Button
-                                    icon="sap-icon://excel-attachment"
+                                    icon="sap-icon://save"
                                     tooltip="Download Excel"
+                                    type="Success"
                                 />
-                                <!-- <Button
-                                    icon="sap-icon://action-settings"
-                                    type="Accept"
-                                /> -->
+                                <Button
+                                    icon="sap-icon://delete"
+                                    type="Negative"
+                                />
                             </Toolbar>
                         </customHeader>
                         <layout:Grid>
@@ -3009,43 +2960,46 @@
                                 justifyContent="Center"
                                 height="4rem"
                             >
-                                <Label text="Reason" required="true"/>
-                                <Input ></Input>
+                                <Label
+                                    text="Reason"
+                                    required="true"
+                                />
+                                <Input />
                             </VBox>
                         </layout:Grid>
-                        <table:Table selectionMode="Single">
+                        <table:Table selectionMode="Single" rows="{/Calendars}">
                             <table:columns>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="StartDateTime">
                                     <Label text="Start Date Time" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{StartDateTime}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="EndDateTime">
                                     <Label text="End Date Time" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{EndDateTime}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column >
                                     <Label text="Reason " />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Reason}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                </table:columns>
+                            </table:columns>
                         </table:Table>
                     </Page>
-                    
+
                     <Page id="DeliveryLocationspage">
                         <customHeader>
                             <Toolbar>
@@ -3057,7 +3011,7 @@
                                 <Button
                                     icon="sap-icon://add"
                                     type="Emphasized"
-                                    press="onAddPackageType"
+                                    press="onAddDeliveryLocations"
                                 />
                             </Toolbar>
                         </customHeader>
@@ -3074,12 +3028,10 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://locate-me"
-                                        value="{/Users/$count}"
+                                        value="{/Delivery_Locations/$count}"
                                         scale=""
                                         indicator="None"
                                         valueColor="Good"
@@ -3122,41 +3074,41 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
+                        <table:Table selectionMode="None" rows="{/Delivery_Locations}">
                             <table:columns>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="LocationCode">
                                     <Label text="Code" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{LocationCode}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                
-                                <table:Column filterProperty="color">
+
+                                <table:Column filterProperty="LocationName">
                                     <Label text="Name" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{LocationName}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column >
                                     <Label text="Remarks" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{LocationRemarks}"
                                             wrapping="false"
                                         />
                                     </table:template>
                                 </table:Column>
-                                <table:Column filterProperty="color">
+                                <table:Column filterProperty="Status">
                                     <Label text="Status" />
                                     <table:template>
                                         <Text
-                                            text="color"
+                                            text="{Status}"
                                             wrapping="false"
                                         />
                                     </table:template>
@@ -3193,7 +3145,7 @@
                                 <Button
                                     icon="sap-icon://add"
                                     type="Emphasized"
-                                    press="onAddPackageType"
+                                    press="onAddRoles"
                                 />
                             </Toolbar>
                         </customHeader>
@@ -3210,9 +3162,7 @@
                                 frameType="TwoByHalf"
                                 width="21rem"
                             >
-
                                 <TileContent>
-                                
                                     <NumericContent
                                         icon="sap-icon://family-care"
                                         value="{/Users/$count}"
@@ -3269,7 +3219,7 @@
                                         />
                                     </table:template>
                                 </table:Column>
-                                
+
                                 <table:Column filterProperty="color">
                                     <Label text="Name" />
                                     <table:template>
