@@ -2023,7 +2023,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None" rows="{/Carriers}">
+                        <table:Table  alternateRowColors="true" id="Carriers_table" selectionMode="None" rows="{/Carriers}">
                             <table:columns >
                                 <table:Column filterProperty="Name">
                                     <Label text="Name" />
@@ -2064,16 +2064,16 @@
                                 <table:Column width="6rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="SpaceAround">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
-                                                press="onAddRow"
+                                                press="onEditCarrier"
                                             />
                                             <core:Icon
                                                 src="sap-icon://sys-minus"
                                                 color="red"
-                                                press="onDeleteRow"
+                                                press="onDeleteCarrier"
                                             />
                                         </HBox>
                                     </table:template>
@@ -2156,7 +2156,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None" rows="{/Package_Types}">
+                        <table:Table id="Package_Types_table" selectionMode="None" rows="{/Package_Types}">
                             <table:columns>
                                 <table:Column filterProperty="color">
                                     <Label text="Code" />
@@ -2200,7 +2200,7 @@
                                     <table:template>
                                         <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />
@@ -2290,7 +2290,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None" rows="{/Package_Statuses}">
+                        <table:Table id="Package_Statuses_table" selectionMode="None" rows="{/Package_Statuses}">
                             <table:columns>
                                 <table:Column filterProperty="Code">
                                     <Label text="Code" />
@@ -2380,7 +2380,7 @@
                                     <table:template>
                                         <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />
@@ -2470,7 +2470,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None" rows="{/Locations}">
+                        <table:Table id="Locations_table" selectionMode="None" rows="{/Locations}">
                             <table:columns>
                                 <table:Column filterProperty="Code">
                                     <Label text="Code" />
@@ -2567,9 +2567,9 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />
@@ -2967,7 +2967,7 @@
                                 <Input />
                             </VBox>
                         </layout:Grid>
-                        <table:Table selectionMode="Single" rows="{/Calendars}">
+                        <table:Table id="Calendars_table" selectionMode="Single" rows="{/Calendars}">
                             <table:columns>
                                 <table:Column filterProperty="StartDateTime">
                                     <Label text="Start Date Time" />
@@ -3074,7 +3074,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None" rows="{/Delivery_Locations}">
+                        <table:Table id="Delivery_Locations_table" selectionMode="None" rows="{/Delivery_Locations}">
                             <table:columns>
                                 <table:Column filterProperty="LocationCode">
                                     <Label text="Code" />
@@ -3116,9 +3116,9 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />
@@ -3208,7 +3208,7 @@
                             </GenericTile>
                         </HBox>
 
-                        <table:Table selectionMode="None">
+                        <table:Table id="Roles_table" selectionMode="None">
                             <table:columns>
                                 <table:Column filterProperty="color">
                                     <Label text="Code" />
@@ -3250,9 +3250,9 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />
@@ -3433,9 +3433,9 @@
                                 <table:Column width="4rem">
                                     <Label text="Action" />
                                     <table:template>
-                                        <HBox justifyContent="Center">
+                                        <HBox justifyContent="SpaceBetween">
                                             <core:Icon
-                                                src="sap-icon://sys-add"
+                                                src="sap-icon://edit"
                                                 color="blue"
                                                 press="onAddRow"
                                             />

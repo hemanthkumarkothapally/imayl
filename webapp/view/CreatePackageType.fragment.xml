@@ -31,18 +31,17 @@
             <form:SimpleForm >
             <form:content>
                         <Label text="Code" required="true"/>
-                        <Input value="{Name}" />
+                        <Input value="{requestpackageModel>/Package_Types/Code}" />
                         <Label text="Name" required="true"/>
-                        <Input value="{Name}" />
+                        <Input value="{requestpackageModel>/Package_Types/Name}" />
                         <Label text="Status"/>
-                        <Select selectedKey="{Status}">
-                            <core:Item key="1" text="Please Choose:"/>
+                        <Select selectedKey="{requestpackageModel>/Package_Types/Status}">
                             <core:Item key="Active" text="Active" />
                             <core:Item key="InActive" text="InActive" />
                            
                         </Select>
-                        <Label text="Description"/>
-                        <Input value="{TemplateDescription}" />
+                        <Label text="Description" required="true"/>
+                        <Input value="{requestpackageModel>/Package_Types/Description}" />
             
             </form:content>
             </form:SimpleForm>
@@ -60,7 +59,7 @@
                 text="Save"
                 type="Emphasized"
                 icon="sap-icon://save"
-                press=".onSaveNewUser"
+                press=".onAddNewData"
             />
         </endButton>
     </Dialog>

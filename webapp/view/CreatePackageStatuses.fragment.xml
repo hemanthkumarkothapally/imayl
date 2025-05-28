@@ -7,7 +7,7 @@
     <Dialog
         id="CreatePackageStatusesDialog"
         title="Package Statuses"
-        contentWidth="70%"
+        contentWidth="auto"
         contentHeight="auto"
         class="CreateUserDialog"
     >
@@ -35,7 +35,6 @@
                     />
                     <Input
                         value="{Name}"
-                        width="10rem"
                     />
                     <Label
                         text="Description"
@@ -49,27 +48,31 @@
                             text="Please Choose:"
                         />
                         <core:Item
-                            key="Active"
-                            text="Active"
+                            key="Default_Forward"
+                            text="Default Forward"
                         />
                         <core:Item
-                            key="InActive"
-                            text="InActive"
+                            key="Default_Tender"
+                            text="Default Tender"
+                        />
+                        <core:Item
+                            key="Default_Received"
+                            text="Default Received"
+                        />
+                        <core:Item
+                            key="Default_Refused"
+                            text="Default Refused"
                         />
                     </Select>
                     <Label text="Type" />
                     <Select selectedKey="{StatusName}">
                         <core:Item
-                            key="1"
-                            text="Please Choose:"
+                            key="Normal"
+                            text="Normal"
                         />
                         <core:Item
-                            key="Active"
-                            text="Active"
-                        />
-                        <core:Item
-                            key="InActive"
-                            text="InActive"
+                            key="Exception"
+                            text="Exception"
                         />
                     </Select>
                     <Label
@@ -93,10 +96,6 @@
 
                     <Label text="Status" />
                     <Select selectedKey="{Status}">
-                        <core:Item
-                            key="1"
-                            text="Please Choose:"
-                        />
                         <core:Item
                             key="Active"
                             text="Active"
@@ -123,7 +122,7 @@
                 text="Save"
                 type="Emphasized"
                 icon="sap-icon://save"
-                press=".onSaveNewUser"
+                press=".onAddNewData"
             />
         </endButton>
     </Dialog>

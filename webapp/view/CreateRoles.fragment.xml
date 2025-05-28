@@ -112,7 +112,7 @@
                 text="Save"
                 type="Emphasized"
                 icon="sap-icon://save"
-                press=".onSaveNewUser"
+                press=".onAddNewData"
             />
         </endButton>
     </Dialog>

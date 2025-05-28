@@ -11,6 +11,7 @@ sap.ui.define([
 
     return Controller.extend("com.db.imayl.imayl.controller.MainView", {
         onInit() {
+            console.log(this.getOwnerComponent().getModel());
             this._aButton = "";
             this._excelData = [];
             if (typeof XLSX === 'undefined') {
@@ -81,6 +82,47 @@ sap.ui.define([
                     Delivered: true,
                     notifyothers: false,
                     SMS: true
+                },
+                Package_Types: {
+                    Code: "",
+                    Name: "",
+                    Description: null,
+                    Status: "Active"
+                },
+                Package_Statuses: {
+                    Code: "",
+                    Description: "",
+                    Templates: "",
+                    Type: "",
+                    ColorPicker: "",
+                    OrderFlow: "",
+                    Status: "",
+                    PhotoRequired: "",
+                    SignatureRequired: "",
+                    HideTracking: ""
+                },
+                Locations: {
+                    Code: "",
+                    Name: "",
+                    Address: "",
+                    City: "",
+                    State: "",
+                    Zipcode: "",
+                    Country: "",
+                    Phone: "",
+                    Status: "",
+                    Remarks: ""
+                },
+                Calendars: {
+                    StartDateTime: "",
+                    EndDateTime: "",
+                    Reason: ""
+                },
+                Delivery_Locations: {
+                    LocationCode: "",
+                    LocationName: "",
+                    LocationStatus: "",
+                    LocationRemarks: ""
                 }
             });
         },
@@ -109,7 +151,7 @@ sap.ui.define([
             let oToolPage = this.byId("mainpage");
             let bSideExpanded = oToolPage.getSideExpanded();
 
-            this._setToggleButtonTooltip(bSideExpanded);
+            // this._setToggleButtonTooltip(bSideExpanded);
 
             oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
         },
@@ -663,10 +705,27 @@ sap.ui.define([
             this.CreateEmailDialog.open();
         },
         onAddCarrier: function () {
+            let oCarriers={
+                Description: "",
+                Name: "",
+                ShipmentTrackingURL: null,
+                Status: "Active"
+            }
+            this.getOwnerComponent().getModel("requestpackageModel").setProperty("/Carriers",oCarriers)
             if (!this.CreateCarrierDialog) {
                 this.CreateCarrierDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateCarrier", this);
                 this.getView().addDependent(this.CreateCarrierDialog);
             }
+            this.CreateCarrierDialog.open();
+        },
+        onEditCarrier: function (oEvent) {
+            let oData = oEvent.getSource().getBindingContext().getObject()
+            this.getOwnerComponent().getModel("requestpackageModel").setProperty("/Carriers", oData);
+            if (!this.CreateCarrierDialog) {
+                this.CreateCarrierDialog = sap.ui.xmlfragment("com.db.imayl.imayl.view.CreateCarrier", this);
+                this.getView().addDependent(this.CreateCarrierDialog);
+            }
+
             this.CreateCarrierDialog.open();
         },
         onAddPackageType: function () {
@@ -728,6 +787,75 @@ sap.ui.define([
         },
         handleLiveChange: function (oEvent) {
             var oView = this.getView();
+        },
+        _PostData: function (oProperty, aPage) {
+            let oNewData = this.getOwnerComponent().getModel("requestpackageModel").getProperty(oProperty);
+            const oModel = this.getView().getModel();
+            if (!oNewData.ID) {
+                const oUsersBinding = oModel.bindList(oProperty);
+                oUsersBinding.create(oNewData);
+            }
+            else {
+                let sId = oNewData.ID;
+                let sPath = oProperty+`(${sId})`;
+                console.log(sPath);
+                const sBaseUrl = sap.ui.require.toUrl("com/db/imayl/imayl");
+                $.ajax({
+                    url: sBaseUrl+ "/odata/v4/imailservice"+sPath, // Adjust the URL and key
+                    method: "PUT", // or use "PATCH" depending on the backend
+                    contentType: "application/json",
+                    data: JSON.stringify(oNewData),
+                    success: function (response) {
+                        sap.m.MessageToast.show("Update successful");
+                        console.log("Success response:", response);
+                    },
+                    error: function (xhr, status, error) {
+                        sap.m.MessageBox.error("Update failed: " + error);
+                        console.error("Error:", xhr.responseText);
+                    }
+                });
+                
+                
+            }
+            let sTableId = aPage + "_table"
+            this.getView().byId(sTableId).getBinding("rows").refresh();
+
+        },
+        onAddNewData: function (oEvent) {
+            let aDialogBoxId = oEvent.getSource().oParent.sId;
+
+            switch (aDialogBoxId) {
+                case "CreateCarrierDialog":
+                    this._PostData("/Carriers", "Carriers")
+                    
+                    this.CreateCarrierDialog.close();
+                    break;
+                case "CreatePackageTypeDialog":
+                    this._PostData("/Package_Types", "Package_Types")
+                    this.CreatePackageTypeDialog.close();
+                    break;
+                case "CreatePackageStatusesDialog":
+                    this._PostData("/Package_Statuses", "Package_Statuses")
+                    this.CreatePackageStatusesDialog.close();
+                    break;
+                case "CreateLocationsDialog":
+                    this.CreateLocationsDialog.close();
+                    this._PostData("/Locations", "Locations")
+                    break;
+                case "CreateDeliveryLocationsDialog":
+                    this.CreateDeliveryLocationsDialog.close();
+                    this._PostData("/Delivery_Locations", "Delivery_Locations")
+                    break;
+                case "CreateRolesDialog":
+                    this.CreateRolesDialog.close();
+                    this._PostData("/Roles", "Roles")
+                    break;
+                case "CreateEmailDialog":
+                    this._PostData("/newCarrier", "/Carriers")
+                    this.CreateEmailDialog.close();
+                    break;
+
+            }
         },
         onCreateEmailClosePress: function (oEvent) {
             let aDialogBoxId = oEvent.getSource().oParent.oParent.sId;

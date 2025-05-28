@@ -31,18 +31,18 @@
             <form:SimpleForm >
             <form:content>
                         <Label text="Name" required="true"/>
-                        <Input value="{Name}" />
+                        <Input value="{requestpackageModel>/Carriers/Name}" />
                         <Label text="Description" required="true"/>
-                        <Input value="{TemplateDescription}" />
+                        <Input value="{requestpackageModel>/Carriers/Description}" />
             
-                        <Label text="Status Name"/>
-                        <Select selectedKey="Active">
+                        <Label text="Status"/>
+                        <Select selectedKey="{requestpackageModel>/Carriers/Status}">
                             <core:Item key="Active" text="Active" />
                             <core:Item key="InActive" text="InActive" />
                            
                         </Select>
                         <Label text="Shipment Tracking URL"></Label>
-                        <Input value="" ></Input>
+                        <Input value="{requestpackageModel>/Carriers/ShipmentTrackingURL}" ></Input>
                         
             </form:content>
             </form:SimpleForm>
@@ -51,7 +51,7 @@
         <beginButton>
             <Button
                 text="Cancel"
-                press=".onCreateUserFormClosePress"
+                press=".onCloseCarriersDialog"
             />
         </beginButton>
 
@@ -60,7 +60,7 @@
                 text="Save"
                 type="Emphasized"
                 icon="sap-icon://save"
-                press=".onSaveNewUser"
+                press=".onAddNewData"
             />
         </endButton>
     </Dialog>
